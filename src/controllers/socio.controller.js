@@ -1,0 +1,69 @@
+const pool = require("../config/connection");
+
+// Devuelve una lista de todos los socios
+exports.obtenerSocios = (req, res) => {
+  const sql = "SELECT * FROM socios;";
+  pool.query(sql, (err, result, fields) => {
+    if (err){
+      return res.status(500).json({ message: "Error al recuperar la lista de socios."});
+    }
+    res.status(226).json(result)
+  })
+}
+
+// Obtener un socio concreto por su ID
+exports.obtenerSocioPorId = (req, res) => {
+  const ID = req.params.id;
+
+  const sql = "SELECT * FROM socios WHERE id=?;"
+  pool.query(sql,[ID], (err, result, fields) => {
+    if(err) {
+      return res.status(500).json({ message: "Error al recuperar el socio.", error: err})
+    }
+    res.status(226).json(result)
+  })
+}
+
+// Crear un nuevo socio
+exports.nuevoSocio = (req, res) => {
+  const values = Object.values(req.body)
+
+  const sql = "INSERT INTO socios(nombre, apellidos, telefono, email, categoria, cuota, invitado_por) VALUES(?, ?, ?, ?, ?, ?, ?);"
+
+  pool.query(sql, values, (err, result, fields) => {
+    if(err) {
+      return res.status(500).json({ message: "Error al guardar en la base de datos.", error: err })
+    }
+    res.status(201).json({message: "¡Socio agregado correctamente!"})
+  })
+}
+
+//////////////////////////////////////////////////////// POR CORREGIR /////////////////////////////////////////////////////////////////
+// Actualizar atributos de un socio en especifico
+exports.actualizarSocio = (req, res) => {
+  const values = Object.values(req.body);
+  const ID = Number(req.params.id);
+
+  const sql = "UPDATE socios SET nombre=?, apellidos=?, email=?, categoria=?, cuota=?, invitado_por=? WHERE id=?";
+  pool.query(sql, [...values, ID], (err, result, fields) => {
+    if(err) {
+      return res.status(500).json({ message: "Error al actualizar el socio.", error: err });
+    }
+    
+    res.status(200).json({message: "Socio actualizado correctamente!"})
+  })
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Eliminar un socio por ID
+exports.borrarSocio = (req, res) => {
+  const ID = req.params.id;
+
+  const sql = "DELETE FROM socios WHERE id=?";
+  pool.query(sql, ID, (err, result, fields) => {
+    if(err) {
+      return res.status(500).json({ message: "Error al eliminar el socio.", error: err });
+    }
+    res.status(200).json({message: "Socio eliminado correctamente!"})
+  })
+}
