@@ -38,22 +38,23 @@ exports.nuevoSocio = (req, res) => {
   })
 }
 
-//////////////////////////////////////////////////////// POR CORREGIR /////////////////////////////////////////////////////////////////
 // Actualizar atributos de un socio en especifico
 exports.actualizarSocio = (req, res) => {
   const values = Object.values(req.body);
-  const ID = Number(req.params.id);
+  const ID = req.params.id;
 
-  const sql = "UPDATE socios SET nombre=?, apellidos=?, email=?, categoria=?, cuota=?, invitado_por=? WHERE id=?";
+  
+  const sql = "UPDATE socios SET nombre=?, apellidos=?, telefono=?, email=?, categoria=?, cuota=?, invitado_por=? WHERE id=?";
+
   pool.query(sql, [...values, ID], (err, result, fields) => {
     if(err) {
       return res.status(500).json({ message: "Error al actualizar el socio.", error: err });
     }
     
+    console.log(result.affectedRows) 
     res.status(200).json({message: "Socio actualizado correctamente!"})
   })
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Eliminar un socio por ID
 exports.borrarSocio = (req, res) => {
