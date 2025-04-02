@@ -28,7 +28,7 @@ exports.obtenerSocioPorId = (req, res) => {
 exports.nuevoSocio = (req, res) => {
   const values = Object.values(req.body)
 
-  const sql = "INSERT INTO socios(nombre, apellidos, telefono, email, categoria, cuota, invitado_por) VALUES(?, ?, ?, ?, ?, ?, ?);"
+  const sql = "INSERT INTO socios(n_socio, nombre, apellidos, telefono, email, categoria, antiguedad, cuota, abonado, pagado, invitado_por) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
   pool.query(sql, values, (err, result, fields) => {
     if(err) {
