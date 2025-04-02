@@ -26,7 +26,11 @@ exports.obtenerSocioPorId = (req, res) => {
 
 // Crear un nuevo socio
 exports.nuevoSocio = (req, res) => {
-  const values = Object.values(req.body)
+  const values = [
+    req.body.n_socio, req.body.nombre, req.body.apellidos, req.body.telefono,
+    req.body.email, req.body.categoria, req.body.antiguedad, req.body.cuota,
+    req.body.abonado, req.body.pagado, req.body.invitado_por
+  ];
 
   const sql = "INSERT INTO socios(n_socio, nombre, apellidos, telefono, email, categoria, antiguedad, cuota, abonado, pagado, invitado_por) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
