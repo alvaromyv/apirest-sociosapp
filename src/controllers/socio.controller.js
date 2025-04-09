@@ -11,7 +11,7 @@ exports.obtenerSocios = (req, res) => {
   })
 }
 
-// Obtener un socio concreto por su ID
+/*// Obtener un socio concreto por su ID
 exports.obtenerSocioPorId = (req, res) => {
   const ID = req.params.id;
 
@@ -22,7 +22,7 @@ exports.obtenerSocioPorId = (req, res) => {
     }
     res.status(226).json(result)
   })
-}
+}*/
 
 // Crear un nuevo socio
 exports.nuevoSocio = (req, res) => {
@@ -42,13 +42,29 @@ exports.nuevoSocio = (req, res) => {
   })
 }
 
+// Actualizar el nº de socio de cada socio en función de la antiguedad
+exports.reasignarNumeroSocio = (req, res) => {
+  const sql = "SET @num := 0; UPDATE socios SET n_socio = (@num := @num + 1) ORDER BY antiguedad ASC;";
+
+  pool.query(sql, (err, result, fields) => {
+    if(err) {
+      return res.status(500).json({ message: "Error al actualizar los socios.", error: err });
+    }
+    res.status(200).json({message: "Socios actualizados correctamente!"})
+  })
+}
+
 // Actualizar atributos de un socio en especifico
 exports.actualizarSocio = (req, res) => {
-  const values = Object.values(req.body);
+  const values = [
+    req.body.nombre, req.body.apellidos, req.body.telefono,
+    req.body.email, req.body.categoria, req.body.antiguedad, req.body.cuota,
+    req.body.abonado, req.body.pagado, req.body.invitado_por
+  ];
   const ID = req.params.id;
 
   
-  const sql = "UPDATE socios SET nombre=?, apellidos=?, telefono=?, email=?, categoria=?, cuota=?, invitado_por=? WHERE id=?";
+  const sql = "UPDATE socios SET nombre=?, apellidos=?, telefono=?, email=?, categoria=?, antiguedad=?, cuota=?, abonado=?, pagado=?, invitado_por=? WHERE id=?";
 
   pool.query(sql, [...values, ID], (err, result, fields) => {
     if(err) {
