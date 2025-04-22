@@ -11,7 +11,20 @@ exports.obtenerSocios = (req, res) => {
   })
 }
 
-/*// Obtener un socio concreto por su ID
+// Obtiene una lista de socios que contengan la cadena buscada
+exports.buscarSocio = (req, res) => {
+  const TEXTO = req.query.q ? `%${req.query.q}%` : '%' // Si no hay consulta, mostramos todos los socios
+
+  const sql = "SELECT * FROM socios WHERE nombre LIKE ? OR apellidos LIKE ?;";
+  pool.query(sql,[TEXTO, TEXTO], (err, result, fields) => {
+    if (err){
+      return res.status(500).json({ message: "Error al buscar la cadena indicada."});
+    }
+    res.status(226).json(result)
+  })
+}
+
+// Obtener un socio concreto por su ID
 exports.obtenerSocioPorId = (req, res) => {
   const ID = req.params.id;
 
@@ -22,7 +35,7 @@ exports.obtenerSocioPorId = (req, res) => {
     }
     res.status(226).json(result)
   })
-}*/
+}
 
 // Crear un nuevo socio
 exports.nuevoSocio = (req, res) => {
@@ -56,7 +69,7 @@ exports.reasignarNumeroSocio = (req, res) => {
 
 // Actualizar atributos de un socio en especifico
 exports.actualizarSocio = (req, res) => {
-  const values = [
+  const VALUES = [
     req.body.nombre, req.body.apellidos, req.body.telefono,
     req.body.email, req.body.categoria, req.body.antiguedad, req.body.cuota,
     req.body.abonado, req.body.pagado, req.body.invitado_por
@@ -66,7 +79,7 @@ exports.actualizarSocio = (req, res) => {
   
   const sql = "UPDATE socios SET nombre=?, apellidos=?, telefono=?, email=?, categoria=?, antiguedad=?, cuota=?, abonado=?, pagado=?, invitado_por=? WHERE id=?";
 
-  pool.query(sql, [...values, ID], (err, result, fields) => {
+  pool.query(sql, [...VALUES, ID], (err, result, fields) => {
     if(err) {
       return res.status(500).json({ message: "Error al actualizar el socio.", error: err });
     }

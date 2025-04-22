@@ -5,7 +5,8 @@ const socioController = require('../controllers/socio.controller');
 
 module.exports = () => {
     router.get('/', socioController.obtenerSocios);
-    //router.get('/:id', socioController.obtenerSocioPorId); // si quieres recuperar un solo socio
+    router.get('/buscar', socioController.buscarSocio)
+    router.get('/:id', socioController.obtenerSocioPorId);
     router.post('/', socioController.nuevoSocio);
     router.post('/reasignar', socioController.reasignarNumeroSocio);
     router.patch('/:id', socioController.actualizarSocio);
