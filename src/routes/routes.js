@@ -8,7 +8,7 @@ module.exports = () => {
     router.get('/buscar', socioController.buscarSocio)
     router.get('/:id', socioController.obtenerSocioPorId);
     router.post('/', socioController.nuevoSocio);
-    router.post('/reasignar', socioController.reasignarNumeroSocio);
+    router.patch('/reasignar', socioController.reasignarNumeroSocio);
     router.patch('/:id', socioController.actualizarSocio);
     router.delete('/:id', socioController.borrarSocio);
 

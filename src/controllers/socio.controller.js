@@ -69,7 +69,7 @@ exports.reasignarNumeroSocio = (req, res) => {
 
 // Actualizar atributos de un socio en especifico
 exports.actualizarSocio = (req, res) => {
-  const VALUES = [
+  const values = [
     req.body.nombre, req.body.apellidos, req.body.telefono,
     req.body.email, req.body.categoria, req.body.antiguedad, req.body.cuota,
     req.body.abonado, req.body.pagado, req.body.invitado_por
@@ -79,7 +79,7 @@ exports.actualizarSocio = (req, res) => {
   
   const sql = "UPDATE socios SET nombre=?, apellidos=?, telefono=?, email=?, categoria=?, antiguedad=?, cuota=?, abonado=?, pagado=?, invitado_por=? WHERE id=?";
 
-  pool.query(sql, [...VALUES, ID], (err, result, fields) => {
+  pool.query(sql, [...values, ID], (err, result, fields) => {
     if(err) {
       return res.status(500).json({ message: "Error al actualizar el socio.", error: err });
     }
