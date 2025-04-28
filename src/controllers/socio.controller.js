@@ -15,7 +15,7 @@ exports.obtenerSocios = (req, res) => {
 exports.buscarSocio = (req, res) => {
   const TEXTO = req.query.q ? `%${req.query.q}%` : '%' // Si no hay consulta, mostramos todos los socios
 
-  const sql = "SELECT * FROM socios WHERE nombre LIKE ? OR apellidos LIKE ?;";
+  const sql = "SELECT * FROM socios WHERE CONCAT(nombre, ' ', apellidos) LIKE ?;";
   pool.query(sql,[TEXTO, TEXTO], (err, result, fields) => {
     if (err){
       return res.status(500).json({ message: "Error al buscar la cadena indicada."});
