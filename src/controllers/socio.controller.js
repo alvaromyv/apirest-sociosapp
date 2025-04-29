@@ -37,6 +37,19 @@ exports.obtenerSocioPorId = (req, res) => {
   })
 }
 
+// Obtener la lista de socios invitados por un socio concreto por su ID
+exports.obtenerInvitaciones = (req, res) => {
+  const ID = req.params.id;
+
+  const sql = "SELECT * FROM socios WHERE invitado_por=?;"
+  pool.query(sql,[ID], (err, result, fields) => {
+    if(err) {
+      return res.status(500).json({ message: "Error al recuperar la lista de socios.", error: err})
+    }
+    res.status(226).json(result)
+  })
+}
+
 // Crear un nuevo socio
 exports.nuevoSocio = (req, res) => {
   const values = [
