@@ -5,6 +5,8 @@ const socioController = require('../controllers/socio.controller');
 
 module.exports = () => {
     router.get('/', socioController.obtenerSocios);
+    router.get('/morosos', socioController.obtenerMorosos);
+    router.get('/pagados', socioController.obtenerPagados);
     router.get('/buscar', socioController.buscarSocio);
     router.get('/:id', socioController.obtenerSocioPorId);
     router.get('/:id/invitaciones', socioController.obtenerInvitaciones);

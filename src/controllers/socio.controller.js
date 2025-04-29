@@ -2,7 +2,29 @@ const pool = require("../config/connection");
 
 // Devuelve una lista de todos los socios
 exports.obtenerSocios = (req, res) => {
-  const sql = "SELECT * FROM socios;";
+  const sql = "SELECT * FROM socios ORDER BY antiguedad DESC;";
+  pool.query(sql, (err, result, fields) => {
+    if (err){
+      return res.status(500).json({ message: "Error al recuperar la lista de socios."});
+    }
+    res.status(226).json(result)
+  })
+}
+
+// Devuelve una lista de todos los socios morosos
+exports.obtenerMorosos = (req, res) => {
+  const sql = "SELECT * FROM socios WHERE pagado = 0;";
+  pool.query(sql, (err, result, fields) => {
+    if (err){
+      return res.status(500).json({ message: "Error al recuperar la lista de socios."});
+    }
+    res.status(226).json(result)
+  })
+}
+
+// Devuelve una lista de todos los socios pagados
+exports.obtenerPagados = (req, res) => {
+  const sql = "SELECT * FROM socios WHERE pagado = 1;";
   pool.query(sql, (err, result, fields) => {
     if (err){
       return res.status(500).json({ message: "Error al recuperar la lista de socios."});
