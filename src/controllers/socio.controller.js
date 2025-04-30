@@ -72,6 +72,19 @@ exports.obtenerInvitaciones = (req, res) => {
   })
 }
 
+// Obtener el socio que ha invitado a un socio concreto por su ID (invitado_por)
+exports.obtenerInvitador = (req, res) => {
+  const ID = req.params.id;
+
+  const sql = "SELECT * FROM socios WHERE id = (SELECT invitado_por FROM socios WHERE id=?);"
+  pool.query(sql,[ID], (err, result, fields) => {
+    if(err) {
+      return res.status(500).json({ message: "Error al recuperar el socio.", error: err})
+    }
+    res.status(226).json(result)
+  })
+}
+
 // Crear un nuevo socio
 exports.nuevoSocio = (req, res) => {
   const values = [
