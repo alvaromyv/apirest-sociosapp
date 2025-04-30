@@ -6,6 +6,7 @@ try{
         user: "root",
         // password: "root",
         database: "socios_db",
+        timezone: "Z",
         multipleStatements: true
     };  
     
