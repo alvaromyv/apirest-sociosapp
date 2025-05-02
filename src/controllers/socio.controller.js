@@ -100,10 +100,11 @@ exports.obtenerResumenContabilidad = (req, res) => {
       return res.status(500).json({ message: "Error al recuperar el resumen de la contabilidad."});
     }
     res.status(226).json({
-      cuotaTotal: result[0].total ?? 0,
-      cuotaTotalPagada: result[0].pagado ?? 0,
-      cuotaTotalImpagada: result[0].impagado ?? 0,
-      porcentajeCuotasPagadas: result[0].porcentaje_pagado ?? 0
+      total: result[0].total ?? 0,
+      pagado: result[0].pagado ?? 0,
+      impagado: result[0].impagado ?? 0,
+      porcentaje_pagado: result[0].porcentaje_pagado ?? 0,
+      balance: result[0].pagado ?? 0 - result[0].impagado ?? 0
     });
   })
 }
