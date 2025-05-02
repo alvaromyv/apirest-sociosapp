@@ -85,6 +85,29 @@ exports.obtenerInvitador = (req, res) => {
   })
 }
 
+// Obtener un resumen de la contabilidad de la empresa
+exports.obtenerResumenContabilidad = (req, res) => {
+  const sql = `SELECT
+      SUM(cuota) AS total,
+      SUM(CASE WHEN pagado = 1 THEN cuota ELSE 0 END) AS pagado,
+      SUM(CASE WHEN pagado = 0 THEN cuota ELSE 0 END) AS impagado,
+      ROUND(100 * SUM(CASE WHEN pagado = 1 THEN cuota ELSE 0 END) / SUM(cuota), 2) AS porcentaje_pagado
+    FROM socios;
+  `;
+  
+  pool.query(sql, (err, result) => {
+    if (err){
+      return res.status(500).json({ message: "Error al recuperar el resumen de la contabilidad."});
+    }
+    res.status(226).json({
+      cuotaTotal: result[0].total ?? 0,
+      cuotaTotalPagada: result[0].pagado ?? 0,
+      cuotaTotalImpagada: result[0].impagado ?? 0,
+      porcentajeCuotasPagadas: result[0].porcentaje_pagado ?? 0
+    });
+  })
+}
+
 // Crear un nuevo socio
 exports.nuevoSocio = (req, res) => {
   const values = [

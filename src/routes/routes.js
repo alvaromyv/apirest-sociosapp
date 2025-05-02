@@ -11,6 +11,7 @@ module.exports = () => {
     router.get('/:id', socioController.obtenerSocioPorId);
     router.get('/:id/invitaciones', socioController.obtenerInvitaciones);
     router.get('/:id/invitador', socioController.obtenerInvitador)
+    router.get('/contabilidad/resumen', socioController.obtenerResumenContabilidad)
     router.post('/', socioController.nuevoSocio);
     router.patch('/reasignar', socioController.reasignarNumeroSocio);
     router.patch('/:id', socioController.actualizarSocio);
