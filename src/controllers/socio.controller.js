@@ -111,21 +111,42 @@ exports.obtenerResumenContabilidad = (req, res) => {
 
 // Crear un nuevo socio
 exports.nuevoSocio = (req, res) => {
-  const values = [
-    req.body.n_socio, req.body.nombre, req.body.apellidos, req.body.telefono,
-    req.body.email, req.body.categoria, req.body.antiguedad, req.body.cuota,
-    req.body.abonado, req.body.pagado, req.body.invitado_por
-  ];
+  const countQuery = "SELECT COUNT(*) AS total FROM socios";
 
-  const sql = "INSERT INTO socios(n_socio, nombre, apellidos, telefono, email, categoria, antiguedad, cuota, abonado, pagado, invitado_por) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
-
-  pool.query(sql, values, (err, result, fields) => {
-    if(err) {
-      return res.status(500).json({ message: "Error al guardar en la base de datos.", error: err })
+  pool.query(countQuery, (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Error al contar los socios.", error: err });
     }
-    res.status(201).json({message: "¡Socio agregado correctamente!"})
-  })
-}
+
+    const n_socio = results[0].total + 1;
+
+    const values = [
+      n_socio,
+      req.body.nombre,
+      req.body.apellidos,
+      req.body.telefono,
+      req.body.email,
+      req.body.categoria,
+      req.body.antiguedad,
+      req.body.cuota,
+      req.body.abonado,
+      req.body.pagado,
+      req.body.invitado_por
+    ];
+
+    const sql = `INSERT INTO socios
+      (n_socio, nombre, apellidos, telefono, email, categoria, antiguedad, cuota, abonado, pagado, invitado_por)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    pool.query(sql, values, (err, result) => {
+      if (err) {
+        return res.status(500).json({ message: "Error al guardar en la base de datos.", error: err });
+      }
+      res.status(201).json({ message: "¡Socio agregado correctamente!", n_socio: n_socio });
+    });
+  });
+};
+
 
 // Actualizar el nº de socio de cada socio en función de la antiguedad
 exports.reasignarNumeroSocio = (req, res) => {
