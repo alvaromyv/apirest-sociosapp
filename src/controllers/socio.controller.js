@@ -110,7 +110,7 @@ exports.obtenerResumenContabilidad = (req, res) => {
 }
 
 // Crear un nuevo socio
-exports.nuevoSocio = (req, res) => {
+exports.registrarSocio = (req, res) => {
   const countQuery = "SELECT COUNT(*) AS total FROM socios";
 
   pool.query(countQuery, (err, results) => {

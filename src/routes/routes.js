@@ -1,21 +1,35 @@
 const express = require('express');
-const router = express();
+const router = express.Router();
 
 const socioController = require('../controllers/socio.controller');
+const adminController = require('../controllers/admin.controller');
 
 module.exports = () => {
-    router.get('/', socioController.obtenerSocios);
-    router.get('/morosos', socioController.obtenerMorosos);
-    router.get('/pagados', socioController.obtenerPagados);
-    router.get('/buscar', socioController.buscarSocio);
-    router.get('/:id', socioController.obtenerSocioPorId);
-    router.get('/:id/invitaciones', socioController.obtenerInvitaciones);
-    router.get('/:id/invitador', socioController.obtenerInvitador)
-    router.get('/contabilidad/resumen', socioController.obtenerResumenContabilidad)
-    router.post('/', socioController.nuevoSocio);
-    router.patch('/reasignar', socioController.reasignarNumeroSocio);
-    router.patch('/:id', socioController.actualizarSocio);
-    router.delete('/:id', socioController.borrarSocio);
+    const socioRouter = express.Router();
+    const adminRouter = express.Router();
+
+    // Rutas de Socios
+    socioRouter.get('/', socioController.obtenerSocios);
+    socioRouter.get('/morosos', socioController.obtenerMorosos);
+    socioRouter.get('/pagados', socioController.obtenerPagados);
+    socioRouter.get('/buscar', socioController.buscarSocio);
+    socioRouter.get('/:id', socioController.obtenerSocioPorId);
+    socioRouter.get('/:id/invitaciones', socioController.obtenerInvitaciones);
+    socioRouter.get('/:id/invitador', socioController.obtenerInvitador);
+    socioRouter.get('/contabilidad/resumen', socioController.obtenerResumenContabilidad);
+    socioRouter.post('/', socioController.registrarSocio);
+    socioRouter.patch('/reasignar', socioController.reasignarNumeroSocio);
+    socioRouter.patch('/:id', socioController.actualizarSocio);
+    socioRouter.delete('/:id', socioController.borrarSocio);
+
+
+    adminRouter.post('/registrar', adminController.registrarAdmin); 
+    adminRouter.post('/acceder', adminController.acceder); 
+
+
+    // Montar routers en el router principal
+    router.use('/socios', socioRouter);
+    router.use('/admin', adminRouter);
 
     return router;
-}
+};

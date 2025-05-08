@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
 // Rutas del app
-app.use('/api/socios/', routes());
+app.use('/api/', routes());
 
 app.listen(PORT, () => {
     console.log("Server Listening on PORT:", PORT);
