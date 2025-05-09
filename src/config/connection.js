@@ -1,7 +1,6 @@
 const mysql = require("mysql")
 
-try{
-    const config = {
+const config = {
         host: "localhost",
         user: "root",
         // password: "root",
@@ -10,9 +9,16 @@ try{
         multipleStatements: true
     };  
     
-    const pool = mysql.createPool(config);
+ const pool = mysql.createPool(config);
     
-    module.exports = pool;
-}catch(error){
-    console.error('Conexión fallida a la base de datos:', error);
-}
+
+pool.getConnection((err, conexion) => {
+    if(err){
+        console.error("Error al acceder a la base de datos: ", err);
+        process.exit(1)
+    }else{
+        conexion.release()
+    }
+});
+
+module.exports = pool;
