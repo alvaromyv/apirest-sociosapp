@@ -2,13 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const socioController = require('../controllers/socio.controller');
-//const adminController = require('../controllers/admin.controller');
+const authController = require('../controllers/auth.controller');
 
 module.exports = () => {
     const socioRouter = express.Router();
-    //const adminRouter = express.Router();
+    const authRouter = express.Router();
 
-    // Rutas de Socios
     socioRouter.get('/', socioController.obtenerSocios);
     socioRouter.get('/morosos', socioController.obtenerMorosos);
     socioRouter.get('/pagados', socioController.obtenerPagados);
@@ -23,13 +22,11 @@ module.exports = () => {
     socioRouter.delete('/:id', socioController.borrarSocio);
 
 
-    //adminRouter.post('/registrar', adminController.registrarAdmin); 
-    //adminRouter.post('/acceder', adminController.acceder); 
+    authRouter.post('/login', authController.acceder); 
 
 
-    // Montar routers en el router principal
     router.use('/socios', socioRouter);
-    //router.use('/admin', adminRouter);
+    router.use('/auth', authRouter);
 
     return router;
 };

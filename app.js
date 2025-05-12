@@ -12,7 +12,7 @@ function checkApiKey(req, res, next) {
   if (apiKey === API_KEY) {
     next();
   } else {
-    res.status(403).send('Forbidden: Invalid API Key');
+    res.status(403).send('Denegado: API Key no válida');
   }
 }
 
