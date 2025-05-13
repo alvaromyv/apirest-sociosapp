@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
 // Rutas del app
-app.use('/api/', routes());
+app.use('/socioapp/', routes());
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -53,8 +53,8 @@ exports.obtenerSocioPorId = (req, res) => {
   const sql = "SELECT * FROM socios WHERE id=?;"
   pool.query(sql,[ID], (err, result, fields) => {
     if(err) {
-      return res.status(500).json({ message: "Error al recuperar el socio.", error: err})
-    }
+      return res.status(500).json({ message: "Error al recuperar los datos del socio. Intentelo de nuevo.", error: err})
+    } 
     res.status(226).json(result)
   })
 }
