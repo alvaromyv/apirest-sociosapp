@@ -1,39 +1,46 @@
-require('dotenv').config();
-const express = require('express');
-const app = express();
-const routes = require('./src/routes/routes');
+const Express = require("express");
+const app = Express();
+const cors = require("cors");
+const morgan = require("morgan");
+const { Sequelize } = require("sequelize");
 
+const { port } = require("./config");
+const PORT = process.env.PORT || port;
 
-const API_KEY = process.env.API_KEY || 'AMV';
+// Express Routes Import
+const AuthorizationRoutes = require("./authorization/routes");
+const UsuarioRoutes = require("./usuarios/routes");
+const SocioRoutes = require("./socios/routes");
 
-function checkApiKey(req, res, next) {
-  const apiKey = req.query.api_key || req.headers['x-api-key'];
+const UsuarioModel = require("./common/models/Usuario");
+const SocioModel = require("./common/models/Socio");
 
-  if (apiKey === API_KEY) {
-    next();
-  } else {
-    res.status(403).send('Denegado: API Key no válida');
-  }
-}
+app.use(morgan("tiny"));
+app.use(cors());
 
-app.use(checkApiKey);
+app.use(Express.json());
 
-// habilitar body-parser
-app.use(express.urlencoded({extended:true}))
-app.use(express.json())
-
-// Rutas del app
-app.use('/socioapp/', routes());
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log("Server Listening on PORT:", PORT);
+const sequelize = new Sequelize({
+  dialect: "sqlite",
+  storage: "./storage/data.db", // Ruta donde se va a guardar la BBDD SQLite.
 });
 
-app.get("/status", (request, response) => {
-    const status = {
-        "Status": "Running"
-    };
+UsuarioModel.inicializar(sequelize);
+SocioModel.inicializar(sequelize);
 
-    response.send(status)
-});
+sequelize
+  .sync()
+  .then(() => {
+    console.log("Sequelize Inicializado!!");
+
+    app.use("/", AuthorizationRoutes);
+    app.use("/usuarios", UsuarioRoutes);
+    app.use("/socios", SocioRoutes);
+
+    app.listen(PORT, () => {
+      console.log("Server Listening on PORT:", port);
+    });
+  })
+  .catch((err) => {
+    console.error("Sequelize Initialisation threw an error:", err);
+  });

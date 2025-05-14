@@ -1,0 +1,116 @@
+const SocioModel = require("../../common/models/Socio");
+
+module.exports = {
+  obtenerSocios: (req, res) => {
+    const { query: filters } = req;
+
+    SocioModel.obtenerSocios(filters)
+      .then((socios) => {
+        return res.status(200).json({
+          status: true,
+          data: socios,
+        });
+      })
+      .catch((err) => {
+        return res.status(500).json({
+          status: false,
+          error: err,
+        });
+      });
+  },
+
+  obtenerSocioPorId: (req, res) => {
+    const {
+      params: { socioId },
+    } = req;
+
+    SocioModel.encontrarSocio({ id: socioId })
+      .then((socio) => {
+        return res.status(200).json({
+          status: true,
+          data: socio.toJSON(),
+        });
+      })
+      .catch((err) => {
+        return res.status(500).json({
+          status: false,
+          error: err,
+        });
+      });
+  },
+
+  crearSocio: (req, res) => {
+    const { body } = req;
+
+    SocioModel.crearSocio(body)
+      .then((socio) => {
+        return res.status(200).json({
+          status: true,
+          data: socio.toJSON(),
+        });
+      })
+      .catch((err) => {
+        return res.status(500).json({
+          status: false,
+          error: err,
+        });
+      });
+  },
+
+  actualizarSocio: (req, res) => {
+    const {
+      params: { socioId },
+      body: payload,
+    } = req;
+
+    // IF the payload does not have any keys,
+    // THEN we can return an error, as nothing can be updated
+    if (!Object.keys(payload).length) {
+      return res.status(400).json({
+        status: false,
+        error: {
+          message: "Body is empty, hence can not update the socio.",
+        },
+      });
+    }
+
+    SocioModel.actualizarSocio({ id: socioId }, payload)
+      .then(() => {
+        return SocioModel.encontrarSocio({ id: socioId });
+      })
+      .then((socio) => {
+        return res.status(200).json({
+          status: true,
+          data: socio.toJSON(),
+        });
+      })
+      .catch((err) => {
+        return res.status(500).json({
+          status: false,
+          error: err,
+        });
+      });
+  },
+
+  eliminarSocio: (req, res) => {
+    const {
+      params: { socioId },
+    } = req;
+
+     SocioModel.eliminarSocio({id: socioId})
+      .then((numberOfEntriesDeleted) => {
+        return res.status(200).json({
+          status: true,
+          data: {
+            numberOfsociosDeleted: numberOfEntriesDeleted
+          },
+        });
+      })
+      .catch((err) => {
+        return res.status(500).json({
+          status: false,
+          error: err,
+        });
+      });
+  },
+};
