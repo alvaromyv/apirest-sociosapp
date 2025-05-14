@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const SocioController = require("../controllers/SocioController");
+const SocioController = require("../controllers/socio.controller");
 
 // Middleware Imports
 const isAuthenticatedMiddleware = require("../common/middlewares/IsAuthenticatedMiddleware");
@@ -20,7 +20,7 @@ router.get(
 );
 
 router.get(
-  "/:socioId",
+  "/:id",
   [isAuthenticatedMiddleware.check],
   SocioController.obtenerSocioPorId
 );
@@ -36,7 +36,7 @@ router.post(
 );
 
 router.patch(
-  "/:socioId",
+  "/:id",
   [
     isAuthenticatedMiddleware.check,
     CheckPermissionMiddleware.has(roles.ADMIN),
@@ -46,7 +46,7 @@ router.patch(
 );
 
 router.delete(
-  "/:socioId",
+  "/:id",
   [isAuthenticatedMiddleware.check, CheckPermissionMiddleware.has(roles.ADMIN)],
   SocioController.eliminarSocio
 );

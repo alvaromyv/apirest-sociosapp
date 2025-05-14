@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const { categoriaValues } = require("../../../config");
+const { categorias } = require("../../../config");
 
 const SocioModel = {
     id: {
@@ -29,7 +29,7 @@ const SocioModel = {
         unique: true,
     },
     categoria: {
-        type: DataTypes.ENUM(...Object.values(categoriaValues)),
+        type: DataTypes.ENUM(...Object.values(categorias)),
         allowNull: false,
     },
     antiguedad: {

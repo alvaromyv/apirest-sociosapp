@@ -25,7 +25,7 @@ const UsuarioModel = {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  role: {
+  rol: {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: roles.USER
@@ -41,7 +41,7 @@ module.exports = {
     return this.model.create(usuario);
   },
 
-  encontrarUsuario: (query) => {
+  obtenerUsuarioActual: (query) => {
     return this.model.findOne({
       where: query,
     });

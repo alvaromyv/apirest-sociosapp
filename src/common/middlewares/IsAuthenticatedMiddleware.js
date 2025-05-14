@@ -40,7 +40,7 @@ module.exports = {
       })
     }
 
-    jwt.verify(token, jwtSecret, (err, user) => {
+    jwt.verify(token, jwtSecret, (err, usuario) => {
       if (err) {
         return res.status(403).json({
           status: false,
@@ -48,7 +48,7 @@ module.exports = {
         });
       }
 
-      req.user = user; // Save the user object for further use
+      req.usuario = usuario; // Save the user object for further use
       next();
     });
   }

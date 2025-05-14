@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 // Controller Imports
-const AuthorizationController = require("../controllers/AuthorizationController");
+const AuthorizationController = require("../controllers/authorization.controller.js");
 
 // Middleware Imports
 const SchemaValidationMiddleware = require("../common/middlewares/SchemaValidationMiddleware.js");

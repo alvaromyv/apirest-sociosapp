@@ -1,4 +1,4 @@
-const { categoriaValues } = require("../../config");
+const { categorias } = require("../../config");
 module.exports = {
   type: "object",
   properties: {
@@ -16,7 +16,7 @@ module.exports = {
     },
     categoria: {
         type: "string",
-        enum: Object.values(categoriaValues),
+        enum: Object.values(categorias),
     },
     antiguedad: {
         type: "string",

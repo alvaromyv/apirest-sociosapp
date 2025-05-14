@@ -5,11 +5,11 @@ const UsuarioModel = require("../common/models/Usuario");
 
 const { roles, jwtSecret, jwtExpirationInSeconds } = require("../../config");
 
-// Generates an Access Token using email and usuarioId for the user's authentication
-const generateAccessToken = (email, usuarioId) => {
+// Generates an Access Token using email and id for the user's authentication
+const generateAccessToken = (email, id) => {
   return jwt.sign(
     {
-      usuarioId,
+      id,
       email,
     },
     jwtSecret,
@@ -68,7 +68,7 @@ module.exports = {
   login: (req, res) => {
     const { email, password } = req.body;
 
-    UsuarioModel.encontrarUsuario({ email })
+    UsuarioModel.obtenerUsuarioActual({ email })
       .then((user) => {
         // IF user is not found with the given email
         // THEN Return user not found error

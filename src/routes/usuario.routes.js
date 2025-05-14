@@ -6,7 +6,7 @@ const SchemaValidationMiddleware = require("../common/middlewares/SchemaValidati
 const CheckPermissionMiddleware = require("../common/middlewares/CheckPermissionMiddleware");
 
 // Controller Imports
-const UsuarioController = require("../controllers/UsuarioController");
+const UsuarioController = require("../controllers/usuario.controller");
 
 // JSON Schema Imports for payload verification
 const actualizarUsuarioPayload = require("../schemas/actualizarUsuarioPayload");
@@ -15,7 +15,8 @@ const cambiarRolPayload = require("../schemas/cambiarRolPayload");
 
 const { roles } = require("../../config");
 
-router.get("/", [isAuthenticatedMiddleware.check], UsuarioController.encontrarUsuario);
+// Sirve para obtener los datos del usuario que ha iniciado sesión
+router.get("/", [isAuthenticatedMiddleware.check], UsuarioController.obtenerUsuarioActual);
 
 router.patch(
   "/",
@@ -27,13 +28,13 @@ router.patch(
 );
 
 router.get(
-  "/all",
+  "/todos",
   [isAuthenticatedMiddleware.check, CheckPermissionMiddleware.has(roles.ADMIN)],
   UsuarioController.obtenerUsuarios
 );
 
 router.patch(
-  "/change-role/:userId",
+  "/cambiar-rol/:id",
   [
     isAuthenticatedMiddleware.check,
     CheckPermissionMiddleware.has(roles.ADMIN),
@@ -43,7 +44,7 @@ router.patch(
 );
 
 router.delete(
-  "/:usuarioId",
+  "/:id",
   [isAuthenticatedMiddleware.check, CheckPermissionMiddleware.has(roles.ADMIN)],
   UsuarioController.eliminarUsuario
 );

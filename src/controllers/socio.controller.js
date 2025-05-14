@@ -21,10 +21,10 @@ module.exports = {
 
   obtenerSocioPorId: (req, res) => {
     const {
-      params: { socioId },
+      params: { id },
     } = req;
 
-    SocioModel.encontrarSocio({ id: socioId })
+    SocioModel.encontrarSocio({ id: id })
       .then((socio) => {
         return res.status(200).json({
           status: true,
@@ -59,7 +59,7 @@ module.exports = {
 
   actualizarSocio: (req, res) => {
     const {
-      params: { socioId },
+      params: { id },
       body: payload,
     } = req;
 
@@ -74,9 +74,9 @@ module.exports = {
       });
     }
 
-    SocioModel.actualizarSocio({ id: socioId }, payload)
+    SocioModel.actualizarSocio({ id: id }, payload)
       .then(() => {
-        return SocioModel.encontrarSocio({ id: socioId });
+        return SocioModel.encontrarSocio({ id: id });
       })
       .then((socio) => {
         return res.status(200).json({
@@ -94,10 +94,10 @@ module.exports = {
 
   eliminarSocio: (req, res) => {
     const {
-      params: { socioId },
+      params: { id },
     } = req;
 
-     SocioModel.eliminarSocio({id: socioId})
+     SocioModel.eliminarSocio({id: id})
       .then((numberOfEntriesDeleted) => {
         return res.status(200).json({
           status: true,
