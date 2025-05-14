@@ -8,12 +8,12 @@ const { port } = require("./config");
 const PORT = process.env.PORT || port;
 
 // Express Routes Import
-const AuthorizationRoutes = require("./authorization/routes");
-const UsuarioRoutes = require("./usuarios/routes");
-const SocioRoutes = require("./socios/routes");
+const AuthorizationRoutes = require("./src/routes/authorization.routes");
+const UsuarioRoutes = require("./src/routes/usuario.routes");
+const SocioRoutes = require("./src/routes/socio.routes");
 
-const UsuarioModel = require("./common/models/Usuario");
-const SocioModel = require("./common/models/Socio");
+const UsuarioModel = require("./src/common/models/Usuario");
+const SocioModel = require("./src/common/models/Socio");
 
 app.use(morgan("tiny"));
 app.use(cors());

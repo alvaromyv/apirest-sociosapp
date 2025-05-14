@@ -1,4 +1,4 @@
-const SocioModel = require("../../common/models/Socio");
+const SocioModel = require("../common/models/Socio");
 
 module.exports = {
   obtenerSocios: (req, res) => {

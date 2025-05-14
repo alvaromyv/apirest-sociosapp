@@ -1,14 +1,14 @@
 const router = require("express").Router();
 
 // Controller Imports
-const AuthorizationController = require("./controllers/AuthorizationController");
+const AuthorizationController = require("../controllers/AuthorizationController");
 
 // Middleware Imports
 const SchemaValidationMiddleware = require("../common/middlewares/SchemaValidationMiddleware.js");
 
 // JSON Schema Imports for payload verification
-const registerPayload = require("./schemas/registerPayload.js");
-const loginPayload = require("./schemas/loginPayload.js");
+const registerPayload = require("../schemas/registerPayload.js");
+const loginPayload = require("../schemas/loginPayload.js");
 
 router.post(
   "/signup",

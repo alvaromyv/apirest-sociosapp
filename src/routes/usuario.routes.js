@@ -1,19 +1,19 @@
 const router = require("express").Router();
 
 // Middleware Imports
-const isAuthenticatedMiddleware = require("./../common/middlewares/IsAuthenticatedMiddleware");
+const isAuthenticatedMiddleware = require("../common/middlewares/IsAuthenticatedMiddleware");
 const SchemaValidationMiddleware = require("../common/middlewares/SchemaValidationMiddleware");
 const CheckPermissionMiddleware = require("../common/middlewares/CheckPermissionMiddleware");
 
 // Controller Imports
-const UsuarioController = require("./controllers/UsuarioController");
+const UsuarioController = require("../controllers/UsuarioController");
 
 // JSON Schema Imports for payload verification
-const actualizarUsuarioPayload = require("./schemas/actualizarUsuarioPayload");
-const cambiarRolPayload = require("./schemas/cambiarRolPayload");
+const actualizarUsuarioPayload = require("../schemas/actualizarUsuarioPayload");
+const cambiarRolPayload = require("../schemas/cambiarRolPayload");
 
 
-const { roles } = require("../config");
+const { roles } = require("../../config");
 
 router.get("/", [isAuthenticatedMiddleware.check], UsuarioController.encontrarUsuario);
 

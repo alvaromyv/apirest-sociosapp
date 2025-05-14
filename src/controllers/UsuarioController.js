@@ -1,4 +1,4 @@
-const UsuarioModel = require("../../common/models/Usuario");
+const UsuarioModel = require("../../src/common/models/Usuario");
 
 function encontrarUsuario(req, res) {
     const {

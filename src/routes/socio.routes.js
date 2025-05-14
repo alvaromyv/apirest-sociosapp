@@ -1,16 +1,16 @@
 const router = require("express").Router();
 
-const SocioController = require("./controllers/SocioController");
+const SocioController = require("../controllers/SocioController");
 
 // Middleware Imports
-const isAuthenticatedMiddleware = require("./../common/middlewares/IsAuthenticatedMiddleware");
+const isAuthenticatedMiddleware = require("../common/middlewares/IsAuthenticatedMiddleware");
 const SchemaValidationMiddleware = require("../common/middlewares/SchemaValidationMiddleware");
 const CheckPermissionMiddleware = require("../common/middlewares/CheckPermissionMiddleware");
 
 // JSON Schema Imports for payload verification
-const crearSocioPayload = require("./schemas/crearSocioPayload");
-const actualizarSocioPayload = require("./schemas/actualizarSocioPayload");
-const { roles } = require("../config");
+const crearSocioPayload = require("../schemas/crearSocioPayload");
+const actualizarSocioPayload = require("../schemas/actualizarSocioPayload");
+const { roles } = require("../../config");
 
 
 router.get(
