@@ -59,12 +59,24 @@ const SocioModel = {
         },
         allowNull: true
     }
+    
 };
 
 
 module.exports = {
   inicializar: (sequelize) => {
     this.model = sequelize.define("socio", SocioModel)
+
+    this.model.belongsTo(this.model, {
+      foreignKey: "invitado_por",
+      as: "invitador",
+    });
+
+    this.model.hasMany(this.model, {
+      foreignKey: "invitado_por",
+      as: "invitados",
+    });
+    
   },
 
   crearSocio: (socio) => {
@@ -76,7 +88,15 @@ module.exports = {
   encontrarSocio: (query) => {
     return this.model.findOne({
       where: query,
+      include: [
+        { model: this.model, as: "invitador" }, 
+        { model: this.model, as: "invitados" },
+      ]
     });
+    
+    /*return this.model.findOne({
+      where: query,
+    });*/
   },
 
   actualizarSocio: (query, updatedValue) => {
