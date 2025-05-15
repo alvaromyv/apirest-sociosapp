@@ -7,7 +7,7 @@ module.exports = {
         ADMIN: 'admin'
     },
     categorias: {
-        ADULTO: 'adulto',
-        INFANTIL: 'infantil'
+        ADULTO: 'ADULTO',
+        INFANTIL: 'INFANTIL'
     }
 }

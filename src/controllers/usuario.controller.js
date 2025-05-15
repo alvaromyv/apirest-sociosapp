@@ -53,7 +53,7 @@ module.exports = {
 
         UsuarioModel.actualizarUsuario({ id: id }, payload)
             .then(() => {
-                return UsuarioModel.encontrarUsuario({ id: id });
+                return UsuarioModel.obtenerUsuarioActual({ id: id });
             })
             .then((usuario) => {
                 return res.status(200).json({
@@ -96,7 +96,7 @@ module.exports = {
 
         UsuarioModel.actualizarUsuario({ id: id }, { role })
             .then(() => {
-                return UsuarioModel.encontrarUsuario({ id: id });
+                return UsuarioModel.obtenerUsuarioActual({ id: id });
             })
             .then((user) => {
                 return res.status(200).json({
