@@ -28,7 +28,12 @@ module.exports = {
       .then((socio) => {
         return res.status(200).json({
           status: true,
-          data: socio.toJSON(),
+          data: {
+            socio: socio.toJSON(),
+            invitador: socio.toJSON().invitador || null,
+            invitaciones: socio.toJSON().invitados || [],
+          }
+          // data: socio.toJSON(),
         });
       })
       .catch((err) => {
@@ -41,7 +46,7 @@ module.exports = {
 
   crearSocio: (req, res) => {
     const { body } = req;
-
+    
     SocioModel.crearSocio(body)
       .then((socio) => {
         return res.status(200).json({
@@ -69,7 +74,7 @@ module.exports = {
       return res.status(400).json({
         status: false,
         error: {
-          message: "Body is empty, hence can not update the socio.",
+          message: "El cuerpo está vacío, por lo que no se puede actualizar el socio.",
         },
       });
     }
@@ -102,7 +107,7 @@ module.exports = {
         return res.status(200).json({
           status: true,
           data: {
-            numberOfsociosDeleted: numberOfEntriesDeleted
+            numberOfSociosDeleted: numberOfEntriesDeleted
           },
         });
       })

@@ -16,12 +16,12 @@ const SocioModel = {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    telefono: {
-        type: DataTypes.STRING,
-    },
     apellidos: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    telefono: {
+        type: DataTypes.STRING,
     },
     email: {
         type: DataTypes.STRING,
@@ -70,19 +70,23 @@ module.exports = {
     this.model.belongsTo(this.model, {
       foreignKey: "invitado_por",
       as: "invitador",
+      onDelete: "SET NULL",
     });
 
     this.model.hasMany(this.model, {
-      foreignKey: "invitado_por",
-      as: "invitados",
+        foreignKey: "invitado_por",
+        as: "invitaciones",
+        onDelete: "SET NULL",
     });
     
   },
 
   crearSocio: (socio) => {
-    /*const n = (this.model.count()) + 1
-    return this.model.create({...socio, n_socio: n});*/
-    return this.model.create(socio);
+    return this.model.count().then(count => {
+      const n = count + 1;
+      return this.model.create({...socio, n_socio: n});
+    });
+    //return this.model.create(socio);
   },
 
   encontrarSocio: (query) => {
@@ -90,13 +94,9 @@ module.exports = {
       where: query,
       include: [
         { model: this.model, as: "invitador" }, 
-        { model: this.model, as: "invitados" },
+        { model: this.model, as: "invitaciones" },
       ]
     });
-    
-    /*return this.model.findOne({
-      where: query,
-    });*/
   },
 
   actualizarSocio: (query, updatedValue) => {

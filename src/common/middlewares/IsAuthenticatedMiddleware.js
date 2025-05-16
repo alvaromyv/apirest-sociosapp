@@ -11,7 +11,7 @@ module.exports = {
       return res.status(401).json({
         status: false,
         error: {
-          message: 'Auth headers not provided in the request.'
+          message: 'Cabecera de autenticación no proporcionado en la solicitud.'
         }
       });
     }
@@ -22,7 +22,7 @@ module.exports = {
       return res.status(401).json({
         status: false,
         error: {
-          message: 'Invalid auth mechanism.'
+          message: 'Mecanismo de autenticación no válido.'
         }
       });
     }
@@ -35,7 +35,7 @@ module.exports = {
       return res.status(401).json({
         status: false,
         error: {
-          message: 'Bearer token missing in the authorization headers.'
+          message: 'Falta el token de autenticación en las cabeceras de autorización.'
         }
       })
     }
@@ -44,7 +44,7 @@ module.exports = {
       if (err) {
         return res.status(403).json({
           status: false,
-          error: 'Invalid access token provided, please login again.'
+          error: "El token de acceso proporcionado no es válido, por favor inicie sesión de nuevo."
         });
       }
 

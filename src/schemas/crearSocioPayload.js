@@ -14,6 +14,10 @@ module.exports = {
     telefono: {
         type: "string",
     },
+    email: {
+        type: "string",
+        format: "email"
+    },
     categoria: {
         type: "string",
         enum: Object.values(categorias),
@@ -35,6 +39,6 @@ module.exports = {
         type: "number",
     }
   },
-  required: ["nombre", "apellidos", "telefono", "categoria", "antiguedad", "cuota"],
+  required: ["nombre", "apellidos", "telefono", "email", "categoria", "antiguedad", "cuota", "abonado", "pagado", "invitado_por"],
   additionalProperties: false,
 };

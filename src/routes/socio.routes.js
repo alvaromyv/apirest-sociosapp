@@ -47,7 +47,10 @@ router.patch(
 
 router.delete(
   "/:id",
-  [isAuthenticatedMiddleware.check, CheckPermissionMiddleware.has(roles.ADMIN)],
+  [
+    isAuthenticatedMiddleware.check, 
+    CheckPermissionMiddleware.has(roles.ADMIN)
+  ],
   SocioController.eliminarSocio
 );
 

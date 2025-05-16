@@ -46,7 +46,7 @@ module.exports = {
             return res.status(400).json({
                 status: false,
                 error: {
-                    message: "Body is empty, hence can not update the user.",
+                    message: "El cuerpo está vacío, por lo que no se puede actualizar el socio.",
                 },
             });
         }

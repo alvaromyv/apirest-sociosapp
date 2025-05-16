@@ -76,7 +76,7 @@ module.exports = {
           return res.status(400).json({
             status: false,
             error: {
-              message: `Could not find any user with email: \`${email}\`.`,
+              message: `No existe ningún usuario con el correo eletronico: \`${email}\`.`,
             },
           });
         }
@@ -89,7 +89,7 @@ module.exports = {
           return res.status(400).json({
             status: false,
             error: {
-              message: `Provided email and password did not match.`,
+              message: "El correo electrónico y la contraseña introducidos no coinciden.",
             },
           });
         }

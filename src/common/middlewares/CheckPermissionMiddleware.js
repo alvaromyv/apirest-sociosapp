@@ -2,9 +2,9 @@ const UsuarioModel = require("../models/Usuario");
 
 module.exports.has = function(rol) {
     return (req, res, next) => {
-        const { usuario: { usuarioId } } = req;
+        const { usuario: { id } } = req;
 
-        UsuarioModel.obtenerUsuarioActual({ id: usuarioId }).then((usuario) => {
+        UsuarioModel.obtenerUsuarioActual({ id: id }).then((usuario) => {
             if (!usuario) {
                 return res.status(403).json({
                     status: false,
@@ -17,7 +17,7 @@ module.exports.has = function(rol) {
             if (usuarioRol !== rol) {
                 return res.status(403).json({
                     status: false,
-                    error: `Necesitas el permiso ${rol} para acceder a esta operación.`,
+                    error: `Necesitas el permiso ${rol} para realizar esta operación.`,
                 });
             }
 

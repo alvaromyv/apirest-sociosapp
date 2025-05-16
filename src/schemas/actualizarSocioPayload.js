@@ -15,6 +15,10 @@ module.exports = {
     telefono: {
         type: "string",
     },
+    email: {
+        type: "string",
+        format: "email"
+    },
     categoria: {
         type: "string",
         enum: Object.values(categorias),
