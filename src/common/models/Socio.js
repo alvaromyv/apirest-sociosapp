@@ -82,8 +82,8 @@ module.exports = {
   },
 
   crearSocio: (socio) => {
-    return this.model.count().then(count => {
-      const n = count + 1;
+    return this.model.max('n_socio').then(maxNsocio => {
+      const n = maxNsocio + 1;
       return this.model.create({...socio, n_socio: n});
     });
     //return this.model.create(socio);

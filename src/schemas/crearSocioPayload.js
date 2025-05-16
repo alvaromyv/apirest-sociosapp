@@ -2,9 +2,6 @@ const { categorias } = require("../../config");
 module.exports = {
   type: "object",
   properties: {
-    n_socio: {
-      type: "number"
-    },
     nombre: {
         type: "string",
     },

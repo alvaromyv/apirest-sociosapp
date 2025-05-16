@@ -28,12 +28,7 @@ module.exports = {
       .then((socio) => {
         return res.status(200).json({
           status: true,
-          data: {
-            socio: socio.toJSON(),
-            invitador: socio.toJSON().invitador || null,
-            invitaciones: socio.toJSON().invitados || [],
-          }
-          // data: socio.toJSON(),
+          data: socio.toJSON(),
         });
       })
       .catch((err) => {
@@ -107,7 +102,7 @@ module.exports = {
         return res.status(200).json({
           status: true,
           data: {
-            numberOfSociosDeleted: numberOfEntriesDeleted
+            numberOfEntriesDeleted: numberOfEntriesDeleted
           },
         });
       })
