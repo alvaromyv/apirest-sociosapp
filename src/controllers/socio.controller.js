@@ -1,4 +1,5 @@
 const SocioModel = require("../common/models/Socio");
+const { Op, fn, col, where } = require("sequelize");
 
 module.exports = {
   obtenerSocios: (req, res) => {
@@ -38,6 +39,53 @@ module.exports = {
         });
       });
   },
+
+  buscarSocio: (req, res) => {
+    const { q : cadena } = req.query
+    const filtro = `%${cadena}%`;
+
+    SocioModel.obtenerSocios({
+      [Op.or]: [
+        { nombre: { [Op.like]: filtro } },
+        { apellidos: { [Op.like]: filtro } },
+        where(
+          fn('CONCAT', col('nombre'), ' ', col('apellidos')),
+          {
+            [Op.like]: filtro
+          }
+        )
+      ]
+    })
+      .then((socios) => {
+        return res.status(200).json({
+          status: true,
+          data: socios,
+        });
+      })
+      .catch((err) => {
+        return res.status(500).json({
+          status: false,
+          error: err,
+        });
+      });
+  },
+
+  obtenerContabilidad: (req, res) => {
+    SocioModel.obtenerContabilidad()
+      .then((contabilidad) => {
+        return res.status(200).json({
+          status: true,
+          data: contabilidad,
+        });
+      })
+      .catch((err) => {
+        return res.status(500).json({
+          status: false,
+          error: err,
+        });
+    });
+  },
+
 
   crearSocio: (req, res) => {
     const { body } = req;
@@ -93,9 +141,7 @@ module.exports = {
   },
 
   reasignarNumeracion: (req, res) => {
-    const order = [['antiguedad', 'ASC']];
-
-    SocioModel.obtenerSocios(order)
+    SocioModel.obtenerSocios({}, [['antiguedad', 'ASC']])
       .then((socios) => {
         const promesas = socios.map((socio, indice) => {
           return SocioModel.actualizarSocio(
@@ -115,12 +161,9 @@ module.exports = {
         });
       })
       .catch((err) => {
-        console.error("Error al reasignar numeración:", err);
         return res.status(500).json({
           status: false,
-          error: {
-            message: "Error al reasignar la numeración de los socios.",
-          },
+          error: err
         });
       });
   },

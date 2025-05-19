@@ -97,12 +97,15 @@ module.exports = {
         // Generating an AccessToken for the user, which will be
         // required in every subsequent request.
         const accessToken = generateAccessToken(user.email, user.id);
+        const decoded = jwt.decode(accessToken); // Decodificamos el token
+        const exp = decoded.exp; // Hora exacta a la que el token caduca
 
         return res.status(200).json({
           status: true,
           data: {
             user: user.toJSON(),
             token: accessToken,
+            expiresIn: exp
           },
         });
       })

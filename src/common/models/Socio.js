@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const { categorias } = require("../../../config");
-const { reasignarNumeracion } = require("../../controllers/socio.controller");
 
 const SocioModel = {
     id: {
@@ -66,6 +65,7 @@ const SocioModel = {
 
 module.exports = {
   inicializar: (sequelize) => {
+    this.sequelize = sequelize;
     this.model = sequelize.define("socio", SocioModel)
 
     this.model.belongsTo(this.model, {
@@ -79,7 +79,6 @@ module.exports = {
         as: "invitaciones",
         onDelete: "SET NULL",
     });
-    
   },
 
   crearSocio: (socio) => {
@@ -113,9 +112,35 @@ module.exports = {
     });
   },
 
+obtenerContabilidad: () => {
+    return this.model.findAll({
+      attributes: [
+        [this.sequelize.fn('SUM', this.sequelize.col('cuota')), 'total'],
+        [this.sequelize.literal('SUM(CASE WHEN pagado = true THEN cuota ELSE 0 END)'), 'pagado'],
+        [this.sequelize.literal('SUM(CASE WHEN pagado = false THEN cuota ELSE 0 END)'), 'impagado']
+      ],
+      raw: true
+    }).then(([result]) => {
+      const totalNum = parseFloat(result.total) || 0;
+      const pagadoNum = parseFloat(result.pagado) || 0;
+      const impagadoNum = parseFloat(result.impagado) || 0;
+      const porcentajePagado = totalNum > 0 ? (pagadoNum / totalNum) * 100 : 0;
+      const balance = pagadoNum - impagadoNum;
+
+      return {
+        total: totalNum,
+        pagado: pagadoNum,
+        impagado: impagadoNum,
+        porcentaje_pagado: Number(porcentajePagado.toFixed(2)),
+        balance: balance,
+      };
+    });
+  },
+
   eliminarSocio: (query) => {
     return this.model.destroy({
       where: query
     });
   }
+
 }
