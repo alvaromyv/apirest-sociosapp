@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { categorias } = require("../../../config");
+const { reasignarNumeracion } = require("../../controllers/socio.controller");
 
 const SocioModel = {
     id: {
@@ -82,11 +83,11 @@ module.exports = {
   },
 
   crearSocio: (socio) => {
-    return this.model.max('n_socio').then(maxNsocio => {
-      const n = maxNsocio + 1;
-      return this.model.create({...socio, n_socio: n});
-    });
-    //return this.model.create(socio);
+    return this.model.max('n_socio')
+      .then(maxNsocio => {
+        const n = maxNsocio + 1;
+        return this.model.create({...socio, n_socio: n});
+      });
   },
 
   encontrarSocio: (query) => {
@@ -105,9 +106,10 @@ module.exports = {
     });
   },
 
-  obtenerSocios: (query) => {
+  obtenerSocios: (query, order = [['antiguedad', 'DESC']]) => {
     return this.model.findAll({
-      where: query
+      where: query,
+      order: order,
     });
   },
 

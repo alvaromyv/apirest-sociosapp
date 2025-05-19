@@ -92,6 +92,39 @@ module.exports = {
       });
   },
 
+  reasignarNumeracion: (req, res) => {
+    const order = [['antiguedad', 'ASC']];
+
+    SocioModel.obtenerSocios(order)
+      .then((socios) => {
+        const promesas = socios.map((socio, indice) => {
+          return SocioModel.actualizarSocio(
+            { id: socio.id },
+            { n_socio: indice + 1 }
+          );
+        });
+
+        return Promise.all(promesas);
+      })
+      .then(() => {
+        return res.status(200).json({
+          status: true,
+          data: {
+            message: "¡Numeración reasignada correctamente!"
+          },
+        });
+      })
+      .catch((err) => {
+        console.error("Error al reasignar numeración:", err);
+        return res.status(500).json({
+          status: false,
+          error: {
+            message: "Error al reasignar la numeración de los socios.",
+          },
+        });
+      });
+  },
+
   eliminarSocio: (req, res) => {
     const {
       params: { id },

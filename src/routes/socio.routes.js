@@ -11,6 +11,7 @@ const CheckPermissionMiddleware = require("../common/middlewares/CheckPermission
 const crearSocioPayload = require("../schemas/crearSocioPayload");
 const actualizarSocioPayload = require("../schemas/actualizarSocioPayload");
 const { roles } = require("../../config");
+const actualizarNumeracionSocioPayload = require("../schemas/actualizarNumeracionSocioPayload");
 
 
 router.get(
@@ -44,6 +45,18 @@ router.patch(
   ],
   SocioController.actualizarSocio
 );
+
+///////////////////////////////////////////////
+router.patch(
+  "/reasignar",
+  [
+    isAuthenticatedMiddleware.check,
+    CheckPermissionMiddleware.has(roles.ADMIN),
+    // SchemaValidationMiddleware.verify(actualizarNumeracionSocioPayload),
+  ],
+  SocioController.reasignarNumeracion
+);
+///////////////////////////////////////////////
 
 router.delete(
   "/:id",
