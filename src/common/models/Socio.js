@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const { categorias } = require("../../../config");
+const { categorias } = require("../../../config/config");
 
 const SocioModel = {
     id: {

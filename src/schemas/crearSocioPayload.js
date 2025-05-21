@@ -1,4 +1,4 @@
-const { categorias } = require("../../config");
+const { categorias } = require("../../config/config");
 module.exports = {
   type: "object",
   properties: {

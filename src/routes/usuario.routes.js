@@ -13,7 +13,7 @@ const actualizarUsuarioPayload = require("../schemas/actualizarUsuarioPayload");
 const cambiarRolPayload = require("../schemas/cambiarRolPayload");
 
 
-const { roles } = require("../../config");
+const { roles } = require("../../config/config");
 
 // Sirve para obtener los datos del usuario que ha iniciado sesión
 router.get("/", [isAuthenticatedMiddleware.check], UsuarioController.obtenerUsuarioActual);

@@ -4,7 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const { Sequelize } = require("sequelize");
 
-const { port } = require("./config");
+const { port } = require("./config/config");
 const PORT = process.env.PORT || port;
 
 // Express Routes Import
@@ -22,7 +22,7 @@ app.use(Express.json());
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
-  storage: "./database/data.db", // Ruta donde se va a guardar la BBDD SQLite.
+  storage: "./src/common/databases/data.db", // Ruta donde se va a guardar la BBDD SQLite.
 });
 
 UsuarioModel.inicializar(sequelize);

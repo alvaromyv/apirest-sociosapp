@@ -10,7 +10,7 @@ const CheckPermissionMiddleware = require("../common/middlewares/CheckPermission
 // JSON Schema Imports for payload verification
 const crearSocioPayload = require("../schemas/crearSocioPayload");
 const actualizarSocioPayload = require("../schemas/actualizarSocioPayload");
-const { roles } = require("../../config");
+const { roles } = require("../../config/config");
 
 router.get(
     "/",
