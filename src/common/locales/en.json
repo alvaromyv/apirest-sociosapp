@@ -1,0 +1,29 @@
+{
+	"success": {
+		"lista_socios": "%d partners have been found.",
+		"socio_obtenido": "You have selected %s %s"
+	},
+	"error": {
+		"acceso_invalido": "Invalid access, please try again.",
+		"permiso_necesario": "You need the %s permission to perform this operation.",
+		"esquema_no_proporcionado": "Schema not provided.",
+		"payload_no_valido": "Invalid payload: %s",
+		"auth_cabecera_no_proporcionada": "Authentication header not provided in the request.",
+		"auth_mecanismo_no_valido": "Invalid authentication mechanism.",
+		"auth_token_faltante": "Authentication token is missing in the authorization headers.",
+		"auth_token_no_valido": "The provided access token is invalid, please log in again.",
+		"lista_socios": "Failed to retrieve partners. %s",
+		"socio_no_existe": "The selected partner does not exist.",
+		"lista_usuarios": "Failed to retrieve users. %s",
+		"usuario_no_encontrado": "The user does not exist.",
+		"crear_usuario": "An error occurred while creating the user. %s",
+		"eliminar_usuario": "An error occurred while deleting the user. %s",
+		"body_vacio_usuario_actualizar": "The body is empty, so the user cannot be updated.",
+		"actualizar_usuario": "An error occurred while updating the user. %s",
+		"email_no_existe": "No user found with the email: %s.",
+		"email_password_no_coinciden": "The email and password entered do not match.",
+		"fallo_servidor": "An unexpected server error occurred. Please try again later.",
+		"reintentar": "Please try again later."
+	},
+	"reintentar": "reintentar"
+}

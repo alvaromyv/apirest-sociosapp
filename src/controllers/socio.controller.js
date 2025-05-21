@@ -10,13 +10,17 @@ module.exports = {
         const { count: numberOfEntriesFound, rows: socios} = resultado
         return res.status(200).json({
           status: true,
+          message: req.__("success.lista_socios", numberOfEntriesFound),
           data: socios,
         });
       })
       .catch((err) => {
+        console.log(err)
         return res.status(500).json({
           status: false,
-          error: err,
+          error: {
+            message: req.__("error.lista_socios", req.__("error.reintentar"))
+          },
         });
       });
   },
@@ -30,6 +34,7 @@ module.exports = {
       .then((socio) => {
         return res.status(200).json({
           status: true,
+          message: req.__("success.socio_obtenido", socio.nombre, socio.apellidos),
           data: socio.toJSON(),
         });
       })
@@ -37,7 +42,7 @@ module.exports = {
         return res.status(500).json({
           status: false,
           error: {
-            message: "El socio seleccionado ya no existe.",
+            message: req.__("error.socio_no_existe"),
           },
         });
       });
@@ -60,25 +65,18 @@ module.exports = {
       ]
     })
       .then((resultado) => {
-        const { count: numberOfEntriesFound, rows: socios } = resultado;
-        if(numberOfEntriesFound > 0){
-          return res.status(200).json({
+        const { count: numberOfEntriesFound, rows: socios} = resultado
+        return res.status(200).json({
             status: true,
             data: socios,
-          });
-        } else {
-          return res.status(200).json({
-            status: false,
-            error: {
-              message: "No se encontró ningún socio con ese nombre o apellidos.",
-            },
-          });
-        }
+        })
       })
       .catch((err) => {
         return res.status(500).json({
           status: false,
-          error: err
+          error: {
+            message: req.__("fallo_servidor" , req.__("reintentar"))
+          }
         });
       });
   },
@@ -94,7 +92,9 @@ module.exports = {
       .catch((err) => {
         return res.status(500).json({
           status: false,
-          error: err,
+          error: {
+            message: req.__("fallo_servidor" , req.__("reintentar"))
+          },
         });
     });
   },

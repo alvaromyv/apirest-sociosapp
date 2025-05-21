@@ -76,7 +76,7 @@ module.exports = {
           return res.status(400).json({
             status: false,
             error: {
-              message: `No existe ningún usuario con el correo eletronico: \`${email}\`.`,
+              message: req.__("error.email_no_existe", email )
             },
           });
         }
@@ -89,7 +89,7 @@ module.exports = {
           return res.status(400).json({
             status: false,
             error: {
-              message: "El correo electrónico y la contraseña introducidos no coinciden.",
+              message: req.__("error.email_password_no_coinciden"),
             },
           });
         }
@@ -112,7 +112,9 @@ module.exports = {
       .catch((err) => {
         return res.status(500).json({
           status: false,
-          error: err,
+          error: {
+              message: req.__("fallo_servidor" , req.__("reintentar")),
+            },
         });
       });
   },

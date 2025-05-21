@@ -1,0 +1,35 @@
+{
+	"success": {
+		"lista_socios": "Se han encontrado %d socio/s",
+		"socio_obtenido": "Has seleccionado a %s %s"
+	},
+
+	"error": {
+		"acceso_invalido": "Acceso inválido, por favor inténtelo de nuevo.",
+    	"permiso_necesario": "Necesitas el permiso %s para realizar esta operación.",
+		
+		"esquema_no_proporcionado": "Esquema no proporcionado.",
+    	"payload_no_valido": "Payload inválido: %s",
+
+		"auth_cabecera_no_proporcionada": "Cabecera de autenticación no proporcionada en la solicitud.",
+		"auth_mecanismo_no_valido": "Mecanismo de autenticación no válido.",
+		"auth_token_faltante": "Falta el token de autenticación en las cabeceras de autorización.",
+		"auth_token_no_valido": "El token de acceso proporcionado no es válido, por favor inicie sesión de nuevo.",
+		
+		"lista_socios": "No se ha podido recuperar la lista de socios. %s",
+		"socio_no_existe": "El socio seleccionado no existe.",
+
+		"lista_usuarios": "No se ha podido recuperar la lista de usuarios. %s",
+		"usuario_no_encontrado": "El usuario no existe.",
+		"crear_usuario": "Ha ocurrido un error al crear el usuario. %s",
+    	"eliminar_usuario": "Ha ocurrido un error al eliminar el usuario. %s",
+		"body_vacio_usuario_actualizar": "El cuerpo está vacío, por lo que no se puede actualizar el usuario.",
+		"actualizar_usuario": "Ha ocurrido un error al actualizar el usuario. %s",
+
+		"email_no_existe": "No existe ningún usuario con el correo electrónico: %s.",
+		"email_password_no_coinciden": "El correo electrónico y la contraseña introducidos no coinciden.",
+    	"fallo_servidor": "Se ha producido un error inesperado en el servidor. %s",
+
+		"reintentar": "Por favor, inténtelo de nuevo más tarde."
+	}
+}

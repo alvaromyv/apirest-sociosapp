@@ -11,7 +11,7 @@ module.exports = {
       return res.status(401).json({
         status: false,
         error: {
-          message: 'Cabecera de autenticación no proporcionado en la solicitud.'
+          message: req.__("error.auth_cabecera_no_proporcionada")
         }
       });
     }
@@ -22,7 +22,7 @@ module.exports = {
       return res.status(401).json({
         status: false,
         error: {
-          message: 'Mecanismo de autenticación no válido.'
+          message: req.__("auth_mecanismo_no_valido")
         }
       });
     }
@@ -35,7 +35,7 @@ module.exports = {
       return res.status(401).json({
         status: false,
         error: {
-          message: 'Falta el token de autenticación en las cabeceras de autorización.'
+          message: req.__("auth_token_faltante")
         }
       })
     }
@@ -44,7 +44,7 @@ module.exports = {
       if (err) {
         return res.status(403).json({
           status: false,
-          error: "El token de acceso proporcionado no es válido, por favor inicie sesión de nuevo."
+          error: req.__("auth_token_no_valido")
         });
       }
 

@@ -15,7 +15,7 @@ module.exports = {
    */
   verify: (schema) => {
     if (!schema) {
-      throw new Error("Esquema no proporcionado");
+      throw new Error(req.__("error.esquema_no_proporcionado"));
     }
 
     return (req, res, next) => {
@@ -33,8 +33,8 @@ module.exports = {
       return res.send({
         status: false,
         error: {
-          message: `Invalido Payload: ${ajv.errorsText(validate.errors)}`
-        }
+          message: req.__("error.payload_no_valido", ajv.errorsText(validate.errors))
+        },
       });
     }
   }

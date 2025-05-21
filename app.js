@@ -1,4 +1,6 @@
 const Express = require("express");
+const { I18n } = require('i18n')
+const path = require("path");
 const app = Express();
 const cors = require("cors");
 const morgan = require("morgan");
@@ -17,8 +19,17 @@ const SocioModel = require("./src/common/models/Socio");
 
 app.use(morgan("tiny"));
 app.use(cors());
-
 app.use(Express.json());
+
+const i18n = new I18n({
+  locales: ['en', 'es'],
+  directory: path.join(__dirname, 'src/common/locales'),
+  defaultLocale: 'en',
+  autoReload: true,
+  objectNotation: true
+})
+
+app.use(i18n.init)
 
 const sequelize = new Sequelize({
   dialect: "sqlite",

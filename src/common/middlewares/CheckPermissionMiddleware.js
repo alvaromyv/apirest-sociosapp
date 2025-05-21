@@ -8,7 +8,9 @@ module.exports.has = function(rol) {
             if (!usuario) {
                 return res.status(403).json({
                     status: false,
-                    error: "Acceso inválido, por favor inténtelo de nuevo.",
+                    error: {
+                        message: req.__("error.acceso_invalido")
+                    }
                 });
             }
 
@@ -17,10 +19,11 @@ module.exports.has = function(rol) {
             if (usuarioRol !== rol) {
                 return res.status(403).json({
                     status: false,
-                    error: `Necesitas el permiso ${rol} para realizar esta operación.`,
+                    error: {
+                        message: req.__("error.permiso_necesario", rol)
+                    }
                 });
             }
-
             next();
         });
     };

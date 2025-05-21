@@ -12,7 +12,9 @@ module.exports = {
             .catch((err) => {
                 return res.status(500).json({
                     status: false,
-                    error: err,
+                    error: {
+                        message: req.__("error.lista_usuarios", req.__("error.reintentar"))
+                    },
                 });
             });
     },
@@ -31,7 +33,9 @@ module.exports = {
             .catch((err) => {
                 return res.status(500).json({
                     status: false,
-                    error: err,
+                    error: {
+                        message: req.__("error.usuario_no_encontrado"),
+                    },
                 });
             });
     },
@@ -46,7 +50,7 @@ module.exports = {
             return res.status(400).json({
                 status: false,
                 error: {
-                    message: "El cuerpo está vacío, por lo que no se puede actualizar el socio.",
+                    message: req.__("error.body_vacio_usuario_actualizar"),
                 },
             });
         }
@@ -64,10 +68,13 @@ module.exports = {
             .catch((err) => {
                 return res.status(500).json({
                     status: false,
-                    error: err,
+                    error: {
+                        message: req.__("error.actualizar_usuario", req.__("error.reintentar"))
+                    },
                 });
             });
     },
+
     eliminarUsuario(req, res) {
         const {
             params: { id },
@@ -85,10 +92,13 @@ module.exports = {
             .catch((err) => {
                 return res.status(500).json({
                     status: false,
-                    error: err,
+                    error: {
+                        message: req.__("error.eliminar_usuario", req.__("error.reintentar"))
+                    },
                 });
             });
     },
+
     cambiarRol(req, res) {
         const {
             params: { id }, body: { role },
@@ -107,7 +117,9 @@ module.exports = {
             .catch((err) => {
                 return res.status(500).json({
                     status: false,
-                    error: err,
+                    error: {
+                        message: req.__("error.actualizar_usuario", req.__("error.reintentar"))
+                    },
                 });
             });
     }    

@@ -36,6 +36,6 @@ module.exports = {
         type: "number",
     }
   },
-  required: ["nombre", "apellidos", "telefono", "email", "categoria", "antiguedad", "cuota", "abonado", "pagado", "invitado_por"],
+  required: ["nombre", "apellidos", "telefono", "email", "categoria", "antiguedad", "cuota", "abonado", "pagado"],
   additionalProperties: false,
 };
