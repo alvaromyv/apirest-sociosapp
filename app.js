@@ -22,7 +22,7 @@ app.use(Express.json());
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
-  storage: "./storage/data.db", // Ruta donde se va a guardar la BBDD SQLite.
+  storage: "./database/data.db", // Ruta donde se va a guardar la BBDD SQLite.
 });
 
 UsuarioModel.inicializar(sequelize);
