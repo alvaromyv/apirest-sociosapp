@@ -6,7 +6,8 @@ module.exports = {
     const { query: filters } = req;
 
     SocioModel.obtenerSocios(filters)
-      .then((socios) => {
+      .then((resultado) => {
+        const { count: numberOfEntriesFound, rows: socios} = resultado
         return res.status(200).json({
           status: true,
           data: socios,
@@ -35,7 +36,9 @@ module.exports = {
       .catch((err) => {
         return res.status(500).json({
           status: false,
-          error: err,
+          error: {
+            message: "El socio seleccionado ya no existe.",
+          },
         });
       });
   },
@@ -56,16 +59,26 @@ module.exports = {
         )
       ]
     })
-      .then((socios) => {
-        return res.status(200).json({
-          status: true,
-          data: socios,
-        });
+      .then((resultado) => {
+        const { count: numberOfEntriesFound, rows: socios } = resultado;
+        if(numberOfEntriesFound > 0){
+          return res.status(200).json({
+            status: true,
+            data: socios,
+          });
+        } else {
+          return res.status(200).json({
+            status: false,
+            error: {
+              message: "No se encontró ningún socio con ese nombre o apellidos.",
+            },
+          });
+        }
       })
       .catch((err) => {
         return res.status(500).json({
           status: false,
-          error: err,
+          error: err
         });
       });
   },

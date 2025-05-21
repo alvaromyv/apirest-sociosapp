@@ -106,13 +106,13 @@ module.exports = {
   },
 
   obtenerSocios: (query, order = [['antiguedad', 'DESC']]) => {
-    return this.model.findAll({
+    return this.model.findAndCountAll({
       where: query,
       order: order,
     });
   },
 
-obtenerContabilidad: () => {
+  obtenerContabilidad: () => {
     return this.model.findAll({
       attributes: [
         [this.sequelize.fn('SUM', this.sequelize.col('cuota')), 'total'],
