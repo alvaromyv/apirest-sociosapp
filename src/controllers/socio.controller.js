@@ -130,7 +130,7 @@ module.exports = {
       return res.status(400).json({
         status: false,
         error: {
-          message: "El cuerpo está vacío, por lo que no se puede actualizar el socio.",
+          message: req.__("error.body_vacio_socio_actualizar"),
         },
       });
     }
@@ -146,9 +146,14 @@ module.exports = {
         });
       })
       .catch((err) => {
+
+        console.log(err)
+
         return res.status(500).json({
           status: false,
-          error: err,
+          error: {
+            message: req.__("error.modificar_socio", req.__("error.reintentar")),
+          },
         });
       });
   },
@@ -174,9 +179,14 @@ module.exports = {
         });
       })
       .catch((err) => {
+
+        console.log(err)
+
         return res.status(500).json({
           status: false,
-          error: err
+          error: {
+            message: req.__("error.reasignar_numeracion_socio", req.__("error.reintentar"))
+          }
         });
       });
   },
@@ -196,9 +206,14 @@ module.exports = {
         });
       })
       .catch((err) => {
+
+        console.log(err)
+
         return res.status(500).json({
           status: false,
-          error: err,
+          error: {
+            message: req.__("error.eliminar_socio", req.__("error.reintentar"))
+          },
         });
       });
   },

@@ -22,7 +22,7 @@ module.exports = {
       return res.status(401).json({
         status: false,
         error: {
-          message: req.__("auth_mecanismo_no_valido")
+          message: req.__("error.auth_mecanismo_no_valido")
         }
       });
     }
@@ -35,7 +35,7 @@ module.exports = {
       return res.status(401).json({
         status: false,
         error: {
-          message: req.__("auth_token_faltante")
+          message: req.__("error.auth_token_faltante")
         }
       })
     }
@@ -44,7 +44,7 @@ module.exports = {
       if (err) {
         return res.status(403).json({
           status: false,
-          error: req.__("auth_token_no_valido")
+          error: req.__("error.auth_token_no_valido")
         });
       }
 

@@ -58,9 +58,14 @@ module.exports = {
         });
       })
       .catch((err) => {
+
+        console.log(err)
+
         return res.status(500).json({
           status: false,
-          error: err,
+          error: {
+            message: req.__("error.crear_usuario", req.__("error.reintentar"))
+          },
         });
       });
   },
@@ -110,6 +115,9 @@ module.exports = {
         });
       })
       .catch((err) => {
+
+        console.log(err)
+
         return res.status(500).json({
           status: false,
           error: {

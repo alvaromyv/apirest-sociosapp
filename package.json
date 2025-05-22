@@ -1,6 +1,6 @@
 {
   "name": "apirest-node-socios",
-  "version": "1.0.1",
+  "version": "2.1.2",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app"

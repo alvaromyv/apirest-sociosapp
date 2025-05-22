@@ -18,12 +18,15 @@
 		"usuario_no_encontrado": "The user does not exist.",
 		"crear_usuario": "An error occurred while creating the user. %s",
 		"eliminar_usuario": "An error occurred while deleting the user. %s",
-		"body_vacio_usuario_actualizar": "The body is empty, so the user cannot be updated.",
+		"body_vacio_usuario_actualizar": "The user has not been modified. No change has been detected.",
+		"body_vacio_socio_actualizar": "The partner has not been modified. No change has been detected.",
+		"actualizar_socio": "An error occurred while updating the partner. %s",
+		"eliminar_socio": "An error occurred while deleting the partner. %s",
 		"actualizar_usuario": "An error occurred while updating the user. %s",
+		"reasignar_numeracion_socios": "An error occurred when reassigning the numbering of the partners. %s",
 		"email_no_existe": "No user found with the email: %s.",
 		"email_password_no_coinciden": "The email and password entered do not match.",
 		"fallo_servidor": "An unexpected server error occurred. Please try again later.",
 		"reintentar": "Please try again later."
-	},
-	"reintentar": "reintentar"
+	}
 }
