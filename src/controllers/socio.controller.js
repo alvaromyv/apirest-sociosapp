@@ -160,7 +160,8 @@ module.exports = {
 
   reasignarNumeracion: (req, res) => {
     SocioModel.obtenerSocios({}, [['antiguedad', 'ASC']])
-      .then((socios) => {
+      .then((resultado) => {
+        const { count: numberOfEntriesFound, rows: socios} = resultado
         const promesas = socios.map((socio, indice) => {
           return SocioModel.actualizarSocio(
             { id: socio.id },
@@ -185,7 +186,7 @@ module.exports = {
         return res.status(500).json({
           status: false,
           error: {
-            message: req.__("error.reasignar_numeracion_socio", req.__("error.reintentar"))
+            message: req.__("error.reasignar_numeracion_socios", req.__("error.reintentar")),
           }
         });
       });
