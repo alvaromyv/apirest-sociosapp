@@ -1,4 +1,5 @@
 const Express = require("express");
+require('dotenv').config();
 const { I18n } = require('i18n')
 const path = require("path");
 const app = Express();
@@ -31,9 +32,10 @@ const i18n = new I18n({
 
 app.use(i18n.init)
 
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "./src/common/databases/data.db", // Ruta donde se va a guardar la BBDD SQLite.
+const sequelize = new Sequelize(process.env.SQL_DATABASE, 'root', process.env.SQL_ROOT_PASSWORD, {
+  host: process.env.SQL_HOST,
+  dialect: 'mysql',
+  port: process.env.SQL_PORT,
 });
 
 UsuarioModel.inicializar(sequelize);
