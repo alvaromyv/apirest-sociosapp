@@ -1,6 +1,6 @@
 {
   "name": "apirest-node-socios",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app"
@@ -21,6 +21,7 @@
     "i18n": "^0.15.1",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "mysql2": "^3.14.1",
     "sequelize": "^6.37.7"
   }
 }

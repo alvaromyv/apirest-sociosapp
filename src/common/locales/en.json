@@ -1,7 +1,21 @@
 {
 	"success": {
 		"lista_socios": "%d partners have been found.",
-		"socio_obtenido": "You have selected %s %s"
+		"socio_obtenido": "You have selected %s %s",
+		"busqueda_socios": "You have founded %s partner/s.",
+		"obtener_contabilidad": "Accounting data retrieved successfully.",
+		"crear_socio": "The partner has been created successfully.",
+		"actualizar_socio": "The partner has been updated successfully.",
+		"success.reasignar_numeracion": "Partner numbering has been successfully reassigned.",
+		"eliminar_socio": "The partner has been deleted successfully.",
+		"lista_usuarios": "User list retrieved successfully.",
+		"obtener_usuario": "User information retrieved successfully.",
+		"actualizar_usuario": "The user has been updated successfully.",
+		"eliminar_usuario": "The user has been deleted successfully.",
+		"cambiar_rol": "The user's role has been updated successfully.",
+		"reasignar_numeracion": "Reassignment of numbering completed successfully.",
+		"crear_usuario": "The user has been created successfully.",
+		"bienvenida_usuario": "¡Welcome, %s!"
 	},
 	"error": {
 		"acceso_invalido": "Invalid access, please try again.",

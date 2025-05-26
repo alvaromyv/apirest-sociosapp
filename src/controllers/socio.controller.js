@@ -68,6 +68,7 @@ module.exports = {
         const { count: numberOfEntriesFound, rows: socios} = resultado
         return res.status(200).json({
             status: true,
+            message: req.__("success.busqueda_socios", numberOfEntriesFound),
             data: socios,
         })
       })
@@ -86,6 +87,7 @@ module.exports = {
       .then((contabilidad) => {
         return res.status(200).json({
           status: true,
+          message: req.__("success.obtener_contabilidad"),
           data: contabilidad,
         });
       })
@@ -107,6 +109,7 @@ module.exports = {
       .then((socio) => {
         return res.status(200).json({
           status: true,
+          message: req.__("success.crear_socio"),
           data: socio.toJSON(),
         });
       })
@@ -142,6 +145,7 @@ module.exports = {
       .then((socio) => {
         return res.status(200).json({
           status: true,
+          message: req.__("success.actualizar_socio"),
           data: socio.toJSON(),
         });
       })
@@ -174,15 +178,11 @@ module.exports = {
       .then(() => {
         return res.status(200).json({
           status: true,
-          data: {
-            message: "¡Numeración reasignada correctamente!"
-          },
+          message: req.__("success.reasignar_numeracion")
         });
       })
       .catch((err) => {
-
         console.log(err)
-
         return res.status(500).json({
           status: false,
           error: {
@@ -201,8 +201,9 @@ module.exports = {
       .then((numberOfEntriesDeleted) => {
         return res.status(200).json({
           status: true,
+          message: req.__("success.eliminar_socio"),
           data: {
-            numberOfEntriesDeleted: numberOfEntriesDeleted
+            numberOfEntriesDeleted,
           },
         });
       })

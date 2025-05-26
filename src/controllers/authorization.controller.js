@@ -51,6 +51,7 @@ module.exports = {
 
         return res.status(200).json({
           status: true,
+          message: req.__("success.crear_usuario"),
           data: {
             user: user.toJSON(),
             token: accessToken,
@@ -105,8 +106,11 @@ module.exports = {
         const decoded = jwt.decode(accessToken); // Decodificamos el token
         const exp = decoded.exp; // Hora exacta a la que el token caduca
 
+        const nombreCompleto = `${user.nombre} ${user.apellidos}`;
+
         return res.status(200).json({
           status: true,
+          message: req.__("success.bienvenida_usuario", nombreCompleto),
           data: {
             user: user.toJSON(),
             token: accessToken,

@@ -6,6 +6,7 @@ module.exports = {
             .then((usuarios) => {
                 return res.status(200).json({
                     status: true,
+                    message: req.__("success.lista_usuarios"),
                     data: usuarios,
                 });
             })
@@ -30,6 +31,7 @@ module.exports = {
             .then((usuario) => {
                 return res.status(200).json({
                     status: true,
+                    message: req.__("success.obtener_usuario"),
                     data: usuario.toJSON(),
                 });
             })
@@ -68,6 +70,7 @@ module.exports = {
             .then((usuario) => {
                 return res.status(200).json({
                     status: true,
+                    message: req.__("success.actualizar_usuario"),
                     data: usuario.toJSON(),
                 });
             })
@@ -93,8 +96,9 @@ module.exports = {
             .then((numberOfEntriesDeleted) => {
                 return res.status(200).json({
                     status: true,
+                    message: req.__("success.eliminar_usuario"),
                     data: {
-                        numberOfUsersDeleted: numberOfEntriesDeleted
+                        numberOfUsersDeleted: numberOfEntriesDeleted,
                     },
                 });
             })
@@ -123,6 +127,7 @@ module.exports = {
             .then((user) => {
                 return res.status(200).json({
                     status: true,
+                    message: req.__("success.cambiar_rol"),
                     data: user.toJSON(),
                 });
             })
