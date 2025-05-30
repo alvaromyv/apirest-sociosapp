@@ -74,7 +74,7 @@ module.exports = {
   login: (req, res) => {
     const { email, password } = req.body;
 
-    UsuarioModel.obtenerUsuarioActual({ email })
+    UsuarioModel.encontrarUsuario({ email })
       .then((user) => {
         // IF user is not found with the given email
         // THEN Return user not found error

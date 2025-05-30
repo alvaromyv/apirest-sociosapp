@@ -2,34 +2,14 @@ const { DataTypes } = require("sequelize");
 const { roles } = require("../../../config/config");
 
 const UsuarioModel = {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  nombre: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: false,
-  },
-  apellidos: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  rol: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: roles.USER
-  },
+  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+  avatarUrl: { type: DataTypes.STRING,  allowNull: true},
+  nombre: { type: DataTypes.STRING, allowNull: false },
+  apellidos: { type: DataTypes.STRING, allowNull: true },
+  telefono: { type: DataTypes.STRING, allowNull: true },
+  correo: { type: DataTypes.STRING, allowNull: false, unique: true },
+  password: { type: DataTypes.STRING, allowNull: false },
+  rol: { type: DataTypes.STRING, allowNull: false, defaultValue: roles.USER }
 };
 
 module.exports = {
@@ -41,7 +21,7 @@ module.exports = {
     return this.model.create(usuario);
   },
 
-  obtenerUsuarioActual: (query) => {
+  encontrarUsuario: (query) => {
     return this.model.findOne({
       where: query,
     });

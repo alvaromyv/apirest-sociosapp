@@ -82,26 +82,6 @@ module.exports = {
       });
   },
 
-  obtenerContabilidad: (req, res) => {
-    SocioModel.obtenerContabilidad()
-      .then((contabilidad) => {
-        return res.status(200).json({
-          status: true,
-          message: req.__("success.obtener_contabilidad"),
-          data: contabilidad,
-        });
-      })
-      .catch((err) => {
-        return res.status(500).json({
-          status: false,
-          error: {
-            message: req.__("fallo_servidor" , req.__("reintentar"))
-          },
-        });
-    });
-  },
-
-
   crearSocio: (req, res) => {
     const { body } = req;
     

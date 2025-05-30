@@ -32,10 +32,9 @@ const i18n = new I18n({
 
 app.use(i18n.init)
 
-const sequelize = new Sequelize(process.env.SQL_DATABASE, 'root', process.env.SQL_ROOT_PASSWORD, {
-  host: process.env.SQL_HOST,
-  dialect: 'mysql',
-  port: process.env.SQL_PORT,
+const sequelize = new Sequelize({
+  dialect: "sqlite",
+  storage: "./src/common/databases/data.db",
 });
 
 UsuarioModel.inicializar(sequelize);
