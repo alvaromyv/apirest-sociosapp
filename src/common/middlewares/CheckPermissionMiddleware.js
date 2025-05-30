@@ -4,7 +4,7 @@ module.exports.has = function(rol) {
     return (req, res, next) => {
         const { usuario: { id } } = req;
 
-        UsuarioModel.obtenerUsuarioActual({ id: id }).then((usuario) => {
+        UsuarioModel.encontrarUsuario({ id: id }).then((usuario) => {
             if (!usuario) {
                 return res.status(403).json({
                     status: false,

@@ -143,7 +143,7 @@ module.exports = {
   },
 
   reasignarNumeracion: (req, res) => {
-    SocioModel.obtenerSocios({}, [['antiguedad', 'ASC']])
+    SocioModel.obtenerSocios({}, [['fecha_antiguedad', 'ASC']])
       .then((resultado) => {
         const { count: numberOfEntriesFound, rows: socios} = resultado
         const promesas = socios.map((socio, indice) => {

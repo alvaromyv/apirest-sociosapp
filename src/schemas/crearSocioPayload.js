@@ -2,40 +2,25 @@ const { categorias } = require("../../config/config");
 module.exports = {
   type: "object",
   properties: {
-    nombre: {
-        type: "string",
-    },
-    apellidos: {
-        type: "string",
-    },
-    telefono: {
-        type: "string",
-    },
-    email: {
-        type: "string",
-        format: "email"
-    },
     categoria: {
         type: "string",
         enum: Object.values(categorias),
     },
-    antiguedad: {
+    fecha_nacimiento: {
         type: "string",
         format: "date",
     },
-    cuota: {
-        type: "number",
+    fecha_antiguedad: {
+        type: "string",
+        format: "date",
     },
     abonado: {
         type: "boolean",
     },
-    pagado: {
-        type: "boolean",
-    },
-    invitado_por: {
-        type: "number",
+    usuario_id: {
+         type: "number",
     }
   },
-  required: ["nombre", "apellidos", "telefono", "email", "categoria", "antiguedad", "cuota", "abonado", "pagado"],
+  required: ["categoria", "fecha_nacimiento", "fecha_antiguedad", "abonado"],
   additionalProperties: false,
 };

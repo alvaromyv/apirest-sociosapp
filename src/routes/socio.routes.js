@@ -25,15 +25,6 @@ router.get(
 );
 
 router.get(
-  "/contabilidad",
-  [
-    isAuthenticatedMiddleware.check,
-    CheckPermissionMiddleware.has(roles.ADMIN)
-  ],
-  SocioController.obtenerContabilidad
-);
-
-router.get(
   "/:id",
   [isAuthenticatedMiddleware.check],
   SocioController.obtenerSocioPorId

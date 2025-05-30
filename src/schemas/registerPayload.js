@@ -3,10 +3,16 @@ const { roles } = require('../../config/config');
 module.exports = {
   type: 'object',
   properties: {
+    avatar_url: {
+      type: 'string'
+    },
     nombre: {
       type: 'string'
     },
     apellidos: {
+      type: 'string'
+    },
+    telefono: {
       type: 'string'
     },
     email: {
@@ -23,9 +29,9 @@ module.exports = {
   },
   required: [
     'nombre',
-    'apellidos',
     'email',
     'password',
+    'rol'
   ],
-  additionalProperties: false
+  additionalProperties: true
 };

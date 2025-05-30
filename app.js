@@ -40,6 +40,9 @@ const sequelize = new Sequelize({
 UsuarioModel.inicializar(sequelize);
 SocioModel.inicializar(sequelize);
 
+sequelize.models.usuario.hasOne(sequelize.models.socio, { foreignKey: 'usuario_id', as: 'socio', onDelete: 'CASCADE' });
+sequelize.models.socio.belongsTo(sequelize.models.usuario, { foreignKey: 'usuario_id', as: 'usuario'});
+
 sequelize
   .sync()
   .then(() => {
@@ -48,7 +51,7 @@ sequelize
     app.use("/", AuthorizationRoutes);
     app.use("/usuarios", UsuarioRoutes);
     app.use("/socios", SocioRoutes);
-
+    
     app.listen(PORT, () => {
       console.log("Server Listening on PORT:", port);
     });

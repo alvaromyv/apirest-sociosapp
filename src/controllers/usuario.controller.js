@@ -22,12 +22,13 @@ module.exports = {
                 });
             });
     },
-    obtenerUsuarioActual(req, res) {
+
+    encontrarUsuario(req, res) {
         const {
             usuario: { id },
         } = req;
 
-        UsuarioModel.obtenerUsuarioActual({ id: id })
+        UsuarioModel.encontrarUsuario({ id: id })
             .then((usuario) => {
                 return res.status(200).json({
                     status: true,
@@ -65,7 +66,7 @@ module.exports = {
 
         UsuarioModel.actualizarUsuario({ id: id }, payload)
             .then(() => {
-                return UsuarioModel.obtenerUsuarioActual({ id: id });
+                return UsuarioModel.encontrarUsuario({ id: id });
             })
             .then((usuario) => {
                 return res.status(200).json({
@@ -122,7 +123,7 @@ module.exports = {
 
         UsuarioModel.actualizarUsuario({ id: id }, { role })
             .then(() => {
-                return UsuarioModel.obtenerUsuarioActual({ id: id });
+                return UsuarioModel.encontrarUsuario({ id: id });
             })
             .then((user) => {
                 return res.status(200).json({
