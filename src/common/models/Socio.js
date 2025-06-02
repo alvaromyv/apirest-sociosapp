@@ -7,7 +7,7 @@ const SocioModel = {
   fecha_antiguedad: { type: DataTypes.DATE, allowNull: false },
   categoria: { type: DataTypes.ENUM(...Object.values(categorias)), allowNull: false },
   abonado: { type: DataTypes.BOOLEAN, defaultValue: false },
-  usuario_id: { type: DataTypes.INTEGER, allowNull: true, references: { model: 'usuarios', key: 'id' }}
+  usuario_id: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'usuarios', key: 'id' }, unique: true}
 };
 
 
@@ -36,10 +36,16 @@ module.exports = {
     });
   },
 
-  obtenerSocios: (query, order = [['antiguedad', 'DESC']]) => {
+  obtenerSocios: (query, order = [['fecha_antiguedad', 'DESC']]) => {
     return this.model.findAndCountAll({
       where: query,
       order: order,
+      include: [
+        {
+          model: this.model.sequelize.models.usuario,
+          as: 'usuario',
+        }
+      ]
     });
   },
 

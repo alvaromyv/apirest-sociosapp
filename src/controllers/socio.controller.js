@@ -9,15 +9,19 @@ module.exports = {
       .then((resultado) => {
         const { count: numberOfEntriesFound, rows: socios} = resultado
         return res.status(200).json({
-          status: true,
-          message: req.__("success.lista_socios", numberOfEntriesFound),
-          data: socios,
+          status: "success",
+          data: {
+            result: socios,
+            info: {
+              message: req.__("success.lista_socios", numberOfEntriesFound),
+            }
+          }
         });
       })
       .catch((err) => {
         console.log(err)
         return res.status(500).json({
-          status: false,
+          status: "error",
           error: {
             message: req.__("error.lista_socios", req.__("error.reintentar"))
           },
@@ -36,6 +40,7 @@ module.exports = {
           status: true,
           message: req.__("success.socio_obtenido", socio.nombre, socio.apellidos),
           data: socio.toJSON(),
+          
         });
       })
       .catch((err) => {
