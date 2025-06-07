@@ -40,7 +40,6 @@ router.post(
   SocioController.crearSocio
 );
 
-///////////////////////////////////////////////
 router.patch(
   "/reasignar",
   [
@@ -49,7 +48,6 @@ router.patch(
   ],
   SocioController.reasignarNumeracion
 );
-///////////////////////////////////////////////
 
 router.patch(
   "/:id",

@@ -15,7 +15,8 @@
 		"cambiar_rol": "The user's role has been updated successfully.",
 		"reasignar_numeracion": "Reassignment of numbering completed successfully.",
 		"crear_usuario": "The user has been created successfully.",
-		"bienvenida_usuario": "¡Welcome, %s!"
+		"bienvenida_usuario": "¡Welcome, %s!",
+		"avatar_subido": "¡he avatar has been uploaded successfully!"
 	},
 	"error": {
 		"acceso_invalido": "Invalid access, please try again.",
@@ -31,6 +32,7 @@
 		"lista_usuarios": "Failed to retrieve users. %s",
 		"usuario_no_encontrado": "The user does not exist.",
 		"crear_usuario": "An error occurred while creating the user. %s",
+		"crear_socio": "An error occurred while creating the partner. %s",
 		"eliminar_usuario": "An error occurred while deleting the user. %s",
 		"body_vacio_usuario_actualizar": "The user has not been modified. No change has been detected.",
 		"body_vacio_socio_actualizar": "The partner has not been modified. No change has been detected.",
@@ -41,6 +43,7 @@
 		"email_no_existe": "No user found with the email: %s.",
 		"email_password_no_coinciden": "The email and password entered do not match.",
 		"fallo_servidor": "An unexpected server error occurred. Please try again later.",
-		"reintentar": "Please try again later."
+		"reintentar": "Please try again later.",
+		"avatar_no_subido": "An error occurred while uploading the avatar. %s"
 	}
 }

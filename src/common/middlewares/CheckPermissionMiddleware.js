@@ -7,7 +7,7 @@ module.exports.has = function(rol) {
         UsuarioModel.encontrarUsuario({ id: id }).then((usuario) => {
             if (!usuario) {
                 return res.status(403).json({
-                    status: false,
+                    status: "error",
                     error: {
                         message: req.__("error.acceso_invalido")
                     }
@@ -18,7 +18,7 @@ module.exports.has = function(rol) {
 
             if (usuarioRol !== rol) {
                 return res.status(403).json({
-                    status: false,
+                    status: "error",
                     error: {
                         message: req.__("error.permiso_necesario", rol)
                     }

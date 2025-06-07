@@ -9,7 +9,7 @@ module.exports = {
     // THEN return 401 Unauthorized error
     if (!authHeader) {
       return res.status(401).json({
-        status: false,
+        status: "error",
         error: {
           message: req.__("error.auth_cabecera_no_proporcionada")
         }
@@ -20,7 +20,7 @@ module.exports = {
     // THEN return 401 Unauthorized error
     if (!authHeader.startsWith('Bearer')) {
       return res.status(401).json({
-        status: false,
+        status: "error",
         error: {
           message: req.__("error.auth_mecanismo_no_valido")
         }
@@ -33,7 +33,7 @@ module.exports = {
     // THEN return 401 Unauthorized error
     if (!token) {
       return res.status(401).json({
-        status: false,
+        status: "error",
         error: {
           message: req.__("error.auth_token_faltante")
         }
@@ -43,7 +43,7 @@ module.exports = {
     jwt.verify(token, jwtSecret, (err, usuario) => {
       if (err) {
         return res.status(403).json({
-          status: false,
+          status: "error",
           error: req.__("error.auth_token_no_valido")
         });
       }

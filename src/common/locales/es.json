@@ -15,7 +15,8 @@
 		"cambiar_rol": "El rol del usuario ha sido actualizado correctamente.",
 		"reasignar_numeracion": "La numeración de socios ha sido reasginada correctamente.",
 		"crear_usuario": "El usuario ha sido creado correctamente.",
-		"bienvenida_usuario": "¡Bienvenido/a %s!"
+		"bienvenida_usuario": "¡Bienvenido/a %s!",
+		"avatar_subido": "¡El avatar ha sido subido correctamente!"
 	},
 	"error": {
 		"acceso_invalido": "Acceso inválido, por favor inténtelo de nuevo.",
@@ -34,6 +35,7 @@
 		"eliminar_usuario": "Ha ocurrido un error al eliminar el usuario. %s",
 		"body_vacio_usuario_actualizar": "El usuario no ha sido modificado. No se ha detectado ningún cambio.",
 		"body_vacio_socio_actualizar":  "El socio no ha sido modificado. No se ha detectado ningún cambio.",
+		"crear_socio": "Ha ocurrido un error al crear el socio. %s",
 		"actualizar_usuario": "Ha ocurrido un error al actualizar el usuario. %s",
 		"actualizar_socio": "Ha ocurrido un error al actualizar el socio. %s",
 		"eliminar_socio": "An error occurred while deleting the partner. %s",
@@ -41,6 +43,7 @@
 		"email_no_existe": "No existe ningún usuario con el correo electrónico: %s.",
 		"email_password_no_coinciden": "El correo electrónico y la contraseña introducidos no coinciden.",
 		"fallo_servidor": "Se ha producido un error inesperado en el servidor. %s",
-		"reintentar": "Por favor, inténtelo de nuevo más tarde."
+		"reintentar": "Por favor, inténtelo de nuevo más tarde.",
+		"avatar_no_subido": "Ha ocurrido un error al subir el avatar. %s"
 	}
 }

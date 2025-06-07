@@ -31,7 +31,7 @@ module.exports = {
       }
 
       return res.send({
-        status: false,
+        status: "error",
         error: {
           message: req.__("error.payload_no_valido", ajv.errorsText(validate.errors))
         },

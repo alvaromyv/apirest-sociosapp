@@ -12,11 +12,39 @@ const UsuarioController = require("../controllers/usuario.controller");
 const actualizarUsuarioPayload = require("../schemas/actualizarUsuarioPayload");
 const cambiarRolPayload = require("../schemas/cambiarRolPayload");
 
-
+const upload = require("../common/middlewares/UploadAvatar");
 const { roles } = require("../../config/config");
 
+router.get(
+  "/todos",
+  [isAuthenticatedMiddleware.check, CheckPermissionMiddleware.has(roles.ADMIN)],
+  UsuarioController.obtenerUsuarios
+);
+
 // Sirve para obtener los datos del usuario que ha iniciado sesión
-router.get("/", [isAuthenticatedMiddleware.check], UsuarioController.encontrarUsuario);
+router.get(
+  "/", 
+  [isAuthenticatedMiddleware.check], 
+  UsuarioController.encontrarUsuario
+);
+
+router.get(
+  "/:id",
+  [
+    isAuthenticatedMiddleware.check, 
+    CheckPermissionMiddleware.has(roles.ADMIN)
+  ],
+  UsuarioController.obtenerUsuarioPorId
+)
+
+router.post(
+  "/subir-avatar/:id",
+  [
+    isAuthenticatedMiddleware.check,
+    upload.single("avatar"),
+  ],
+  UsuarioController.subirAvatar
+);
 
 router.patch(
   "/",
@@ -27,10 +55,14 @@ router.patch(
   UsuarioController.actualizarUsuario
 );
 
-router.get(
-  "/todos",
-  [isAuthenticatedMiddleware.check, CheckPermissionMiddleware.has(roles.ADMIN)],
-  UsuarioController.obtenerUsuarios
+router.patch(
+  "/:id",
+  [
+    isAuthenticatedMiddleware.check,
+    CheckPermissionMiddleware.has(roles.ADMIN),
+    SchemaValidationMiddleware.verify(actualizarUsuarioPayload),
+  ],
+  UsuarioController.actualizarUsuarioPorId
 );
 
 router.patch(

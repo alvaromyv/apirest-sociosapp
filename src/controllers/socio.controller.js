@@ -11,6 +11,7 @@ module.exports = {
         return res.status(200).json({
           status: "success",
           data: {
+            type: "socios",
             result: socios,
             info: {
               message: req.__("success.lista_socios", numberOfEntriesFound),
@@ -37,15 +38,20 @@ module.exports = {
     SocioModel.encontrarSocio({ id: id })
       .then((socio) => {
         return res.status(200).json({
-          status: true,
-          message: req.__("success.socio_obtenido", socio.nombre, socio.apellidos),
-          data: socio.toJSON(),
-          
+          status: "success",
+          data: {
+            type: "socio",
+            result: socio,
+            info: {
+              message: req.__("success.socio_obtenido", socio.nombre, socio.apellidos)
+            }
+          }
         });
       })
       .catch((err) => {
+        console.log(err)
         return res.status(500).json({
-          status: false,
+          status: "error",
           error: {
             message: req.__("error.socio_no_existe"),
           },
@@ -72,14 +78,20 @@ module.exports = {
       .then((resultado) => {
         const { count: numberOfEntriesFound, rows: socios} = resultado
         return res.status(200).json({
-            status: true,
-            message: req.__("success.busqueda_socios", numberOfEntriesFound),
-            data: socios,
+            status: "success",
+            data: {
+              type: "socios",
+              result: socios,
+              info: {
+                message: req.__("success.busqueda_socios", numberOfEntriesFound),
+              }
+            }
         })
       })
       .catch((err) => {
+        console.log(err)
         return res.status(500).json({
-          status: false,
+          status: "error",
           error: {
             message: req.__("fallo_servidor" , req.__("reintentar"))
           }
@@ -93,15 +105,22 @@ module.exports = {
     SocioModel.crearSocio(body)
       .then((socio) => {
         return res.status(200).json({
-          status: true,
-          message: req.__("success.crear_socio"),
-          data: socio.toJSON(),
+          status: "success",
+          data: {
+            type: "socio",
+            result: socio,
+            info: {
+              message: req.__("success.crear_socio"),
+            }
+          }
         });
       })
       .catch((err) => {
         return res.status(500).json({
-          status: false,
-          error: err,
+          status: "error",
+          error: {
+            message: req.__("error.crear_socio", req.__("error.reintentar")),
+          },
         });
       });
   },
@@ -116,7 +135,7 @@ module.exports = {
     // THEN we can return an error, as nothing can be updated
     if (!Object.keys(payload).length) {
       return res.status(400).json({
-        status: false,
+        status: "error",
         error: {
           message: req.__("error.body_vacio_socio_actualizar"),
         },
@@ -129,9 +148,14 @@ module.exports = {
       })
       .then((socio) => {
         return res.status(200).json({
-          status: true,
-          message: req.__("success.actualizar_socio"),
-          data: socio.toJSON(),
+          status: "success",
+          data: {
+            type: "socio",
+            result: socio,
+            info: {
+              message: req.__("success.actualizar_socio"),
+            }
+          }
         });
       })
       .catch((err) => {
@@ -139,7 +163,7 @@ module.exports = {
         console.log(err)
 
         return res.status(500).json({
-          status: false,
+          status: "error",
           error: {
             message: req.__("error.modificar_socio", req.__("error.reintentar")),
           },
@@ -162,14 +186,19 @@ module.exports = {
       })
       .then(() => {
         return res.status(200).json({
-          status: true,
-          message: req.__("success.reasignar_numeracion")
+          status: "success",
+          data: {
+            type: "simple",
+            info: {
+              message: req.__("success.reasignar_numeracion")
+            }
+          },
         });
       })
       .catch((err) => {
         console.log(err)
         return res.status(500).json({
-          status: false,
+          status: "error",
           error: {
             message: req.__("error.reasignar_numeracion_socios", req.__("error.reintentar")),
           }
@@ -185,19 +214,20 @@ module.exports = {
      SocioModel.eliminarSocio({id: id})
       .then((numberOfEntriesDeleted) => {
         return res.status(200).json({
-          status: true,
-          message: req.__("success.eliminar_socio"),
-          data: {
-            numberOfEntriesDeleted,
-          },
+            status: "success",
+            data: {
+              type: "simple",
+              info: {
+                message: req.__("success.eliminar_socio"),
+                numberOfEntriesDeleted: numberOfEntriesDeleted
+              }
+            }
         });
       })
       .catch((err) => {
-
         console.log(err)
-
         return res.status(500).json({
-          status: false,
+          status: "error",
           error: {
             message: req.__("error.eliminar_socio", req.__("error.reintentar"))
           },

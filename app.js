@@ -8,7 +8,7 @@ const morgan = require("morgan");
 const { Sequelize } = require("sequelize");
 
 const { port } = require("./config/config");
-const PORT = process.env.PORT || port;
+const PORT = process.env.PORT;
 
 // Express Routes Import
 const AuthorizationRoutes = require("./src/routes/authorization.routes");
@@ -59,3 +59,5 @@ sequelize
   .catch((err) => {
     console.error("Sequelize Initialisation threw an error:", err);
   });
+
+app.use('/uploads', Express.static('uploads'));

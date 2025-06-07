@@ -3,7 +3,7 @@ const { roles } = require("../../../config/config");
 
 const UsuarioModel = {
   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-  avatar_url: { type: DataTypes.STRING,  allowNull: true},
+  avatar_url: { type: DataTypes.STRING, allowNull: false, defaultValue: "http://localhost:3000/uploads/default-avatar.webp"},
   nombre: { type: DataTypes.STRING, allowNull: false },
   apellidos: { type: DataTypes.STRING, allowNull: true },
   telefono: { type: DataTypes.STRING, allowNull: true },

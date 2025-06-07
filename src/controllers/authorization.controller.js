@@ -48,14 +48,22 @@ module.exports = {
         // Generating an AccessToken for the user, which will be
         // required in every subsequent request.
         const accessToken = generateAccessToken(payload.email, user.id);
+        const decoded = jwt.decode(accessToken); // Decodificamos el token
+        const exp = decoded.exp; // Hora exacta a la que el token caduca
 
         return res.status(200).json({
-          status: true,
-          message: req.__("success.crear_usuario"),
+          status: "success",
           data: {
-            user: user.toJSON(),
-            token: accessToken,
-          },
+            result: {
+              type: "usuario",
+              user: user.toJSON(),
+              token: accessToken,
+              expiraEn: exp
+            },
+            info: {
+              message: req.__("success.crear_usuario")
+            }
+          }
         });
       })
       .catch((err) => {
@@ -63,7 +71,7 @@ module.exports = {
         console.log(err)
 
         return res.status(500).json({
-          status: false,
+          status: "error",
           error: {
             message: req.__("error.crear_usuario", req.__("error.reintentar"))
           },
@@ -80,7 +88,7 @@ module.exports = {
         // THEN Return user not found error
         if (!user) {
           return res.status(400).json({
-            status: false,
+            status: "error",
             error: {
               message: req.__("error.email_no_existe", email )
             },
@@ -93,7 +101,7 @@ module.exports = {
         // THEN Return password mismatch error
         if (user.password !== encryptedPassword) {
           return res.status(400).json({
-            status: false,
+            status: "error",
             error: {
               message: req.__("error.email_password_no_coinciden"),
             },
@@ -109,12 +117,17 @@ module.exports = {
         const nombreCompleto = `${user.nombre} ${user.apellidos}`;
 
         return res.status(200).json({
-          status: true,
-          message: req.__("success.bienvenida_usuario", nombreCompleto),
+          status: "success",
           data: {
-            user: user.toJSON(),
-            token: accessToken,
-            expiresIn: exp
+            result: {
+              type: "auth",
+              usuario: user,
+              token: accessToken,
+              expiraEn: exp,
+            },
+            info: {
+              message: req.__("success.bienvenida_usuario", nombreCompleto),
+            }
           },
         });
       })
@@ -123,7 +136,7 @@ module.exports = {
         console.log(err)
 
         return res.status(500).json({
-          status: false,
+          status: "error",
           error: {
               message: req.__("fallo_servidor" , req.__("reintentar")),
             },
