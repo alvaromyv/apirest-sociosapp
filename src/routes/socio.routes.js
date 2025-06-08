@@ -19,12 +19,6 @@ router.get(
 );
 
 router.get(
-  "/buscar",
-  [isAuthenticatedMiddleware.check],
-  SocioController.buscarSocio
-);
-
-router.get(
   "/:id",
   [isAuthenticatedMiddleware.check],
   SocioController.obtenerSocioPorId

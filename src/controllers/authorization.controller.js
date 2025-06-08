@@ -55,7 +55,7 @@ module.exports = {
           status: "success",
           data: {
             result: {
-              type: "usuario",
+              type: "auth",
               user: user.toJSON(),
               token: accessToken,
               expiraEn: exp

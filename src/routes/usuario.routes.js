@@ -37,6 +37,12 @@ router.get(
   UsuarioController.obtenerUsuarioPorId
 )
 
+router.get(
+  "/buscar",
+  [isAuthenticatedMiddleware.check],
+  UsuarioController.buscarUsuario
+);
+
 router.post(
   "/subir-avatar/:id",
   [

@@ -89,6 +89,46 @@ module.exports = {
             });
     },
 
+    buscarUsuario: (req, res) => {
+        const { q : cadena } = req.query
+        const filtro = `%${cadena}%`;
+
+        UsuarioModel.obtenerSocios({
+        [Op.or]: [
+            { nombre: { [Op.like]: filtro } },
+            { apellidos: { [Op.like]: filtro } },
+            where(
+            fn('CONCAT', col('nombre'), ' ', col('apellidos')),
+            {
+                [Op.like]: filtro
+            }
+            )
+        ]
+        })
+        .then((resultado) => {
+            const { count: numberOfEntriesFound, rows: usuarios} = resultado
+            return res.status(200).json({
+                status: "success",
+                data: {
+                    type: "usuarios",
+                    result: usuarios,
+                    info: {
+                        message: req.__("success.busqueda_usuarios", numberOfEntriesFound),
+                    }
+                }
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+            return res.status(500).json({
+                status: "error",
+                error: {
+                    message: req.__("fallo_servidor" , req.__("reintentar"))
+                }
+            });
+        });
+    },
+
     actualizarUsuario(req, res) {
         const {
             usuario: { id }, body: payload,
@@ -216,9 +256,8 @@ module.exports = {
         }
 
         const normalizedPath = file.path.split(path.sep).join('/'); 
-        const fullUrl = `${process.env.BASE_URL}:${process.env.PORT}/${normalizedPath}`; 
 
-        UsuarioModel.actualizarUsuario({ id: id }, { avatar_url: fullUrl })
+        UsuarioModel.actualizarUsuario({ id: id }, { avatar_url: normalizedPath })
             .then(() => UsuarioModel.encontrarUsuario({ id: id }))
             .then((usuario) => {
                 return res.status(200).json({

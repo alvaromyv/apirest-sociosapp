@@ -59,46 +59,6 @@ module.exports = {
       });
   },
 
-  buscarSocio: (req, res) => {
-    const { q : cadena } = req.query
-    const filtro = `%${cadena}%`;
-
-    SocioModel.obtenerSocios({
-      [Op.or]: [
-        { nombre: { [Op.like]: filtro } },
-        { apellidos: { [Op.like]: filtro } },
-        where(
-          fn('CONCAT', col('nombre'), ' ', col('apellidos')),
-          {
-            [Op.like]: filtro
-          }
-        )
-      ]
-    })
-      .then((resultado) => {
-        const { count: numberOfEntriesFound, rows: socios} = resultado
-        return res.status(200).json({
-            status: "success",
-            data: {
-              type: "socios",
-              result: socios,
-              info: {
-                message: req.__("success.busqueda_socios", numberOfEntriesFound),
-              }
-            }
-        })
-      })
-      .catch((err) => {
-        console.log(err)
-        return res.status(500).json({
-          status: "error",
-          error: {
-            message: req.__("fallo_servidor" , req.__("reintentar"))
-          }
-        });
-      });
-  },
-
   crearSocio: (req, res) => {
     const { body } = req;
     
