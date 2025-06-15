@@ -2,7 +2,6 @@
 	"success": {
 		"lista_socios": "Se han encontrado %d socio/s",
 		"socio_obtenido": "Has seleccionado a %s %s",
-		"busqueda_socios": "Has encontrado %s socio/s.",
 		"obtener_contabilidad": "Contabilidad obtenida correctamente.",
 		"crear_socio": "El socio ha sido creado correctamente.",
 		"actualizar_socio": "El socio ha sido actualizado correctamente.",
@@ -16,7 +15,8 @@
 		"reasignar_numeracion": "La numeración de socios ha sido reasginada correctamente.",
 		"crear_usuario": "El usuario ha sido creado correctamente.",
 		"bienvenida_usuario": "¡Bienvenido/a %s!",
-		"avatar_subido": "¡El avatar ha sido subido correctamente!"
+		"avatar_subido": "¡El avatar ha sido subido correctamente!",
+		"busqueda_usuarios": "Has encontrado %s usuario/s."
 	},
 	"error": {
 		"acceso_invalido": "Acceso inválido, por favor inténtelo de nuevo.",

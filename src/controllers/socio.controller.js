@@ -1,5 +1,4 @@
 const SocioModel = require("../common/models/Socio");
-const { Op, fn, col, where } = require("sequelize");
 
 module.exports = {
   obtenerSocios: (req, res) => {

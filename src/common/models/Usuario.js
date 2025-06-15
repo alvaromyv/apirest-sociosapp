@@ -3,7 +3,7 @@ const { roles } = require("../../../config/config");
 
 const UsuarioModel = {
   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-  avatar_url: { type: DataTypes.STRING, allowNull: false, defaultValue: "http://localhost:3000/uploads/default-avatar.webp"},
+  avatar_url: { type: DataTypes.STRING, allowNull: false, defaultValue: "uploads/default-avatar.webp"},
   nombre: { type: DataTypes.STRING, allowNull: false },
   apellidos: { type: DataTypes.STRING, allowNull: true },
   telefono: { type: DataTypes.STRING, allowNull: true },
@@ -24,6 +24,13 @@ module.exports = {
   encontrarUsuario: (query) => {
     return this.model.findOne({
       where: query,
+      include: [
+        {
+          model: this.model.sequelize.models.socio,
+          as: 'socio',
+          required: false
+        }
+      ]
     });
   },
 
@@ -34,8 +41,15 @@ module.exports = {
   },
 
   obtenerUsuarios: (query) => {
-    return this.model.findAll({
-      where: query
+    return this.model.findAndCountAll({
+      where: query,
+      include: [
+        {
+          model: this.model.sequelize.models.socio,
+          as: 'socio',
+          required: false
+        }
+      ]
     });
   },
 

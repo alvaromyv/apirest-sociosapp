@@ -54,9 +54,9 @@ module.exports = {
         return res.status(200).json({
           status: "success",
           data: {
+            type: "auth",
             result: {
-              type: "auth",
-              user: user.toJSON(),
+              usuario: user.toJSON(),
               token: accessToken,
               expiraEn: exp
             },
@@ -119,8 +119,8 @@ module.exports = {
         return res.status(200).json({
           status: "success",
           data: {
+            type: "auth",
             result: {
-              type: "auth",
               usuario: user,
               token: accessToken,
               expiraEn: exp,

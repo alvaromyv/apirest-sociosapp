@@ -1,10 +1,12 @@
 const UsuarioModel = require("../common/models/Usuario");
 const path = require('path');
+const { Op, fn, col, where } = require("sequelize");
 
 module.exports = {
     obtenerUsuarios(req, res) {
         UsuarioModel.obtenerUsuarios(req.query)
-            .then((usuarios) => {
+            .then((resultado) => {
+                const { count: numberOfEntriesFound, rows: usuarios} = resultado
                 return res.status(200).json({
                     status: "success",
                     data: {
@@ -29,34 +31,6 @@ module.exports = {
             });
     },
 
-    obtenerUsuarioPorId(req, res) {
-        const {
-            params: { id },
-        } = req;
-
-        UsuarioModel.encontrarUsuario({ id: id })
-        .then((usuario) => {
-            return res.status(200).json({
-                status: "success",
-                data: {
-                    type: "usuario",
-                    result: usuario,
-                    info: {
-                        message: req.__("success.obtener_usuario"),
-                    }
-                }
-            });
-        })
-        .catch((err) => {
-            console.log(err)
-            return res.status(500).json({
-            status: "error",
-            error: {
-                message: req.__("error.usuario_no_encontrado"),
-            },
-            });
-        });
-    },
 
     encontrarUsuario(req, res) {
         const {
@@ -93,7 +67,7 @@ module.exports = {
         const { q : cadena } = req.query
         const filtro = `%${cadena}%`;
 
-        UsuarioModel.obtenerSocios({
+        UsuarioModel.obtenerUsuarios({
         [Op.or]: [
             { nombre: { [Op.like]: filtro } },
             { apellidos: { [Op.like]: filtro } },
@@ -224,10 +198,13 @@ module.exports = {
             .then((numberOfEntriesDeleted) => {
                 return res.status(200).json({
                     status: "success",
-                    message: req.__("success.eliminar_usuario"),
                     data: {
-                        numberOfUsersDeleted: numberOfEntriesDeleted,
-                    },
+                        type: "simple",
+                        info: {
+                            message: req.__("success.eliminar_usuario"),
+                            numberOfEntriesDeleted: numberOfEntriesDeleted,
+                        }
+                    }
                 });
             })
             .catch((err) => {
@@ -281,36 +258,4 @@ module.exports = {
                 });
             });
     },
-
-    cambiarRol(req, res) {
-        const {
-            params: { id }, body: { rol },
-        } = req;
-
-        UsuarioModel.actualizarUsuario({ id: id }, { rol })
-            .then(() => {
-                return UsuarioModel.encontrarUsuario({ id: id });
-            })
-            .then((user) => {
-                return res.status(200).json({
-                    status: "success",
-                    data: {
-                        type: "usuario",
-                        result: user,
-                        info: {
-                            message: req.__("success.cambiar_rol"),
-                        }
-                    }
-                });
-            })
-            .catch((err) => {
-                console.log(err)
-                return res.status(500).json({
-                    status: "error",
-                    error: {
-                        message: req.__("error.actualizar_usuario", req.__("error.reintentar"))
-                    },
-                });
-            });
-    }    
 }

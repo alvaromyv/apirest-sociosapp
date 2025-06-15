@@ -1,3 +1,5 @@
+const { roles } = require('../../config/config');
+
 module.exports = {
   type: 'object',
   properties: {
@@ -8,16 +10,17 @@ module.exports = {
       type: 'string'
     },
     apellidos: {
-      type: 'string'
+      type: ['string', 'null'] 
     },
     telefono: {
-      type: 'string'
+      type: ['string', 'null'] 
     },
     email: {
       type: 'string'
     },
-    password: {
-      type: 'string'
+    rol: {
+      type: 'string',
+      enum: Object.values(roles)
     }
   },
   additionalProperties: false

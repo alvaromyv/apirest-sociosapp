@@ -44,7 +44,9 @@ module.exports = {
       if (err) {
         return res.status(403).json({
           status: "error",
-          error: req.__("error.auth_token_no_valido")
+          error: {
+            message: req.__("error.auth_token_no_valido")
+          }
         });
       }
 

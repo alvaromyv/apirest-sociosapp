@@ -7,10 +7,6 @@ module.exports = {
         type: "string",
         enum: Object.values(categorias),
     },
-    fecha_nacimiento: {
-        type: "string",
-        format: "date",
-    },
     fecha_antiguedad: {
         type: "string",
         format: "date",

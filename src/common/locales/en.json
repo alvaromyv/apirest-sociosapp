@@ -2,7 +2,6 @@
 	"success": {
 		"lista_socios": "%d partners have been found.",
 		"socio_obtenido": "You have selected %s %s",
-		"busqueda_socios": "You have founded %s partner/s.",
 		"obtener_contabilidad": "Accounting data retrieved successfully.",
 		"crear_socio": "The partner has been created successfully.",
 		"actualizar_socio": "The partner has been updated successfully.",
@@ -16,7 +15,8 @@
 		"reasignar_numeracion": "Reassignment of numbering completed successfully.",
 		"crear_usuario": "The user has been created successfully.",
 		"bienvenida_usuario": "¡Welcome, %s!",
-		"avatar_subido": "¡he avatar has been uploaded successfully!"
+		"avatar_subido": "¡he avatar has been uploaded successfully!",
+		"busqueda_usuarios": "You have founded %s user/s."
 	},
 	"error": {
 		"acceso_invalido": "Invalid access, please try again.",

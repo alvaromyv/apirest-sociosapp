@@ -3,7 +3,6 @@ const { categorias } = require("../../../config/config");
 
 const SocioModel = {
   n_socio: { type: DataTypes.INTEGER, allowNull: false},
-  fecha_nacimiento: { type: DataTypes.DATE, allowNull: false},
   fecha_antiguedad: { type: DataTypes.DATE, allowNull: false },
   categoria: { type: DataTypes.ENUM(...Object.values(categorias)), allowNull: false },
   abonado: { type: DataTypes.BOOLEAN, defaultValue: false },
@@ -27,6 +26,12 @@ module.exports = {
   encontrarSocio: (query) => {
     return this.model.findOne({
       where: query,
+      include: [
+        {
+          model: this.model.sequelize.models.usuario,
+          as: 'usuario',
+        }
+      ]
     });
   },
 
