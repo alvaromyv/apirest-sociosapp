@@ -146,6 +146,43 @@ module.exports = {
             });
     },
 
+    encontrarUsuarioId(req, res) {
+        const {
+            params: { id },
+        } = req;
+
+        UsuarioModel.encontrarUsuario({ id: id })
+            .then((usuario) => {
+                if (!usuario) {
+                    return res.status(404).json({
+                        status: "error",
+                        error: {
+                            message: req.__("error.usuario_no_encontrado"),
+                        },
+                    });
+                }
+                return res.status(200).json({
+                    status: "success",
+                    data: {
+                        type: "usuario",
+                        result: usuario,
+                        info: {
+                            message: req.__("success.obtener_usuario"),
+                        }
+                    }
+                });
+            })
+            .catch((err) => {
+                console.log(err)
+                return res.status(500).json({
+                    status: "error",
+                    error: {
+                        message: req.__("error.usuario_no_encontrado"),
+                    },
+                });
+            });
+    },
+
     actualizarUsuarioPorId(req, res) {
         const {
             params: { id }, body: payload,

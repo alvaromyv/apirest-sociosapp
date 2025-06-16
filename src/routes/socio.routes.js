@@ -6,6 +6,7 @@ const SocioController = require("../controllers/socio.controller");
 const isAuthenticatedMiddleware = require("../common/middlewares/IsAuthenticatedMiddleware");
 const SchemaValidationMiddleware = require("../common/middlewares/SchemaValidationMiddleware");
 const CheckPermissionMiddleware = require("../common/middlewares/CheckPermissionMiddleware");
+const ignorarCampos = require('../common/middlewares/IgnorarCampos');
 
 // JSON Schema Imports for payload verification
 const crearSocioPayload = require("../schemas/crearSocioPayload");
@@ -48,6 +49,7 @@ router.patch(
   [
     isAuthenticatedMiddleware.check,
     CheckPermissionMiddleware.has(roles.ADMIN),
+    ignorarCampos('usuario_id'),
     SchemaValidationMiddleware.verify(actualizarSocioPayload),
   ],
   SocioController.actualizarSocio

@@ -17,6 +17,6 @@ module.exports = {
          type: "number",
     }
   },
-  required: ["categoria", "fecha_nacimiento", "fecha_antiguedad", "abonado"],
+  required: ["categoria", "fecha_antiguedad", "abonado"],
   additionalProperties: false,
 };

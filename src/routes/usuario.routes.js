@@ -21,17 +21,23 @@ router.get(
   UsuarioController.obtenerUsuarios
 );
 
+router.get(
+  "/buscar",
+  [isAuthenticatedMiddleware.check],
+  UsuarioController.buscarUsuario
+);
+
+router.get(
+  "/:id", 
+  [isAuthenticatedMiddleware.check, CheckPermissionMiddleware.has(roles.ADMIN)], 
+  UsuarioController.encontrarUsuarioId
+);
+
 // Sirve para obtener los datos del usuario que ha iniciado sesión
 router.get(
   "/", 
   [isAuthenticatedMiddleware.check], 
   UsuarioController.encontrarUsuario
-);
-
-router.get(
-  "/buscar",
-  [isAuthenticatedMiddleware.check],
-  UsuarioController.buscarUsuario
 );
 
 router.post(
