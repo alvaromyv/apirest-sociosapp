@@ -67,3 +67,7 @@ Esta es la API REST del proyecto **SociosApp**, una solución de gestión de soc
 ## 🧾 Licencia
 
 Este proyecto se ha desarrollado como parte del **Proyecto Final de Grado Superior de Desarrollo de Aplicaciones Multiplataforma (FP DAM)** – IES Torre del Rey (Curso 24-25).
+
+## 📂 Repositorio APP Fronted
+
+👉 [SocioMultiplatformApp](https://github.com/alvaromyv/SocioMultiplatformApp)
